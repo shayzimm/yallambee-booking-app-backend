@@ -1,62 +1,99 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
+import { body, validationResult } from 'express-validator'
+import { UserSchema, User } from './db.js'
 
-dotenv.config()
 
-const users = [
-    {
-        id: 1,
-        username: 'johndoe',
-        email: 'john.doe@example.com'
-    },
-    {
-        id: 2,
-        username: 'jane.smith',
-        email: 'jane.smith@example.com'
-    }
-]
-
+// Placeholder for properties listings
 const properties = ['Yallambee', 'Coming Soon']
 
-mongoose.connect(process.env.DB_URI)
-    .then(m => console.log(m.connection.readyState == 1 ? 'Mongoose connected' : 'Mongoose failed to connect'))
-    .catch(err => console.error(err))
-
-const User = mongoose.model('User', {
-    username: {type: String, required: true},
-    email: {type: String, required: true}
-})
-
+// Initializes Express app and sets up middleware to handle JSON requests
 const app = express()
-
-// Middleware
 app.use(express.json())
 
+// Routes
+
+// Root route
 app.get('/', (req, res) => res.send("<h1>Yallambee Tiny Homes</h1>"))
 
-app.get('/users', (req, res) => res.send(users))
-
-app.get('/users/:id', (req, res) => {
-    const user = users.find(u => u.id === parseInt(req.params.id))
-    if (!user) {
-        return res.status(404).send('User not found')
+// Get all users
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.status(500).send('Error retrieving users');
     }
-    res.send(user)
-})
+});
 
+// Get a single user by id
+app.get('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.json(user);
+    } catch (err) {
+        res.status(500).send('Error retrieving user');
+    }
+});
+
+// Get properties
 app.get('/properties', (req, res) => res.send(properties))
 
 // Create a new user
-app.post('/users', async (req, res) => {
+// TO DO: 
+// DONE: input validation for "username" "email" (express-validator)
+// DONE: duplicate email check
+// NEEDS: more error handling
+app.post('/users',
+    [
+    // Validation requirements for input (user)
+    body('email').isEmail().withMessage('Please provide a valid email'),
+    body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
+],
+async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
+    const { email, username } = req.body
+
     try {
-        const newUser = await User.create(req.body)
+        // Check if the email is already registered
+        const existingUser = await User.findOne({ email })
+        if (existingUser) {
+            return res.status(400).send('Email is already registered')
+        }
+
+        // Create a new user (.create - mongoose constructer)
+        const newUser = await User.create({ email, username })
+        // Responding to the client with the new entry and 201 code 
         res.status(201).send(newUser)
     } catch (err) {
-        res.status(400).send(err.message)
+        // Catch errors
+        res.status(400).send({error: err.message})
     }
-})
+}
+)
 
+// delete a user by id
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if (!deletedUser) {
+            return res.status(404).send('User not found');
+        }
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).send('Error deleting user');
+    }
+});
+
+// Server - listening
 app.listen(4001, err => {
     if (err) {
         console.error(err)
