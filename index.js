@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import { body, validationResult } from 'express-validator'
 
-// env config
+// environment variables
 dotenv.config()
      
 
@@ -27,12 +27,71 @@ mongoose.connect(process.env.DB_URI)
     .then(m => console.log(m.connection.readyState == 1 ? 'Mongoose connected' : 'Mongoose failed to connect'))
     .catch(err => console.error(err))
 
-// Mongoose Schema
+// Mongoose User Schema
 // TO DO: age validation for user 18+
-const User = mongoose.model('User', {
-    username: {type: String, required: true},
-    email: {type: String, required: true}
-})
+// DONE: implement length validation for username and email
+// DONE: add phonenumber, firstname and lastname fields
+// DONE: ensure email is unique to each user
+// DONE: timestamp 'createdAt' 'updatedAt' to track user updates/creation
+const UserSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        // Min length for username
+        minlength: 3,
+        // Max length for username
+        maxlength: 50,
+        // Mongoose trim removes whitespace from beginning and end of string
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        // Ensure the email is unique
+        unique: true,
+        // Mongoose match for regular expression
+        // \S+@\S+\.\S+ matchcase for a typical email address format
+        match: [/\S+@\S+\.\S+/, 'Please provide a valid email address'],
+        // Min length for email
+        minlength: 5,
+        // Max length for email
+        maxlength: 100 
+    },
+    firstName: {
+        type: String,
+        required: false,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        required: false,
+        trim: true
+    },
+    phone: {
+        type: String,
+        required: false,
+        // Basic phone number validation setting 10-15 digits
+        match: [/^\d{10,15}$/, 'Please provide a valid phone number'] 
+    },
+    dob: {
+        type: Date,
+        required: false,
+        validate: {
+            validator: function(value) {
+                const today = new Date();
+                const age = today.getFullYear() - value.getFullYear();
+                // Age validation so user must be 18+
+                return age >= 18;
+            },
+            message: 'User must be 18 or older'
+        }
+    }
+}, {
+    // Automatically adds time stamps createdAt and updatedAt for tracking
+    timestamps: true 
+});
+
+const User = mongoose.model('User', UserSchema);
 
 const app = express()
 
@@ -62,7 +121,7 @@ app.post('/users',
     [
     // Validation requirements for input (user)
     body('email').isEmail().withMessage('Please provide a valid email'),
-    body('username').isLength({ min: 4 }).withMessage('Username must be at least 4 characters long'),
+    body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
 ],
 async (req, res) => {
     // Check for validation errors
@@ -85,8 +144,8 @@ async (req, res) => {
         // Responding to the client with the new entry and 201 code 
         res.status(201).send(newUser)
     } catch (err) {
-        // Catch all Errors
-        res.status(500).send('Server error')
+        // Catch errors
+        res.status(400).send({error: err.message})
     }
 }
 )
