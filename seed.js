@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { User, UserSchema} from "./db.js"
+import { User, Property} from "./db.js"
 
 const users = [
     {
@@ -20,11 +20,43 @@ const users = [
     }
 ]
 
-await User.deleteMany()
-console.log('Deleted Users')
+const properties = [
+    {
+        name: 'Cozy Tiny Home',
+        description: 'A charming and cozy tiny home perfect for a tranquil getaway.',
+        price: 150,
+        availability: [new Date('2024-09-01'), new Date('2024-09-02')],
+        location: {
+            city: 'Yallamby',
+            state: 'NSW',
+        },
+        ageRestriction: 18, // Minimum age required to book
+    }
+];
 
-await User.insertMany(users)
-console.log('Added Users')
+// Async function to seed the database
+async function seedDatabase() {
+    try {
+        // Delete existing users and properties
+        await User.deleteMany();
+        console.log('Deleted Users');
 
-// Closing connection to the database 
-mongoose.disconnect()
+        await User.insertMany(users);
+        console.log('Added Users');
+
+        await Property.deleteMany();
+        console.log('Deleted Properties');
+
+        await Property.insertMany(properties);
+        console.log('Added Properties');
+        
+    } catch (error) {
+        console.error('Error seeding the database:', error);
+    } finally {
+        // Close the database connection
+        mongoose.disconnect();
+    }
+}
+
+// Call the async function
+seedDatabase()

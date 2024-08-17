@@ -108,14 +108,30 @@ const PropertySchema = new mongoose.Schema({
         min: 0,
     },
     availability: {
-        // Array of dates when the property is available
+        // TO DO: Array of dates when the property is available
         type: [Date],
         required: true,
     },
     images: {
-        // TO DO : Array of image URLs
+        // TO DO: Array of image URLs
         type: [String],
         required: true,
+    },
+    location: {
+        // Details about the property location
+        city: {
+            type: String,
+            required: true,
+        },
+        state: {
+            type: String,
+            required: true,
+        }
+    },
+    ageRestriction: {
+        // Minimum age required to book this property
+        type: Number,
+        default: 18,
     },
     createdAt: {
         type: Date,
