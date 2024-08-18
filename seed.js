@@ -1,24 +1,25 @@
-import mongoose from 'mongoose'
-import { User, Property} from "./db.js"
+import mongoose from 'mongoose';
+import { User, Property } from './src/models/index.js';
+import connectDB from './src/config/db.js';
 
 const users = [
     {
-      username: 'johndoe',
-      email: 'john.doe@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      phone: '1234567890',
-      dob: new Date('1996-05-15')
+        username: 'johndoe',
+        email: 'john.doe@example.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        phone: '1234567890',
+        dob: new Date('1996-05-15'),
     },
     {
-      username: 'janesmith',
-      email: 'jane.smith@example.com',
-      firstName: 'Jane',
-      lastName: 'Smith',
-      phone: '9876543210',
-      dob: new Date('1985-10-25') 
-    }
-]
+        username: 'janesmith',
+        email: 'jane.smith@example.com',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        phone: '9876543210',
+        dob: new Date('1985-10-25'),
+    },
+];
 
 const properties = [
     {
@@ -27,16 +28,18 @@ const properties = [
         price: 150,
         availability: [new Date('2024-09-01'), new Date('2024-09-02')],
         location: {
-            city: 'Yallamby',
+            city: 'Yallambee',
             state: 'NSW',
         },
         ageRestriction: 18, // Minimum age required to book
-    }
+    },
 ];
 
 // Async function to seed the database
 async function seedDatabase() {
     try {
+        await connectDB(); // Ensure database is connected
+
         // Delete existing users and properties
         await User.deleteMany();
         console.log('Deleted Users');
@@ -59,4 +62,4 @@ async function seedDatabase() {
 }
 
 // Call the async function
-seedDatabase()
+seedDatabase();
