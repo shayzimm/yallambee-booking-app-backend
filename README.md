@@ -719,6 +719,8 @@ npm run seed - Populates database with initial data
 
 - Trello, 2023. *Trello Guide*. [online] Available at: <https://trello.com/en/guide> [Accessed 11 August 2024].
 
+- Express-Validator, 2024. *Express Docs*. [online] Available at: <https://express-validator.github.io/docs> [Accessed 17 August 2024].
+
 ### Contributors
 
 - **Shay Zimmerle**

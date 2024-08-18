@@ -4,12 +4,14 @@ import { body, validationResult } from 'express-validator'
 import { UserSchema, User } from './db.js'
 
 
+
 // Placeholder for properties listings
 const properties = ['Yallambee', 'Coming Soon']
 
 // Initializes Express app and sets up middleware to handle JSON requests
 const app = express()
 app.use(express.json())
+
 
 // Routes
 
