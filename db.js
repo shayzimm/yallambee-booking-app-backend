@@ -12,6 +12,7 @@ mongoose.connect(process.env.DB_URI)
     .then(m => console.log(m.connection.readyState == 1 ? 'Mongoose connected' : 'Mongoose failed to connect'))
     .catch(err => console.error(err))
 
+
 // Mongoose User Schema
 // DONE: age validation for user 18+
 // DONE: implement length validation for username and email
@@ -88,7 +89,11 @@ UserSchema.pre('save', async function (next) {
 const User = mongoose.model('User', UserSchema);
 
 
-// Property Schema
+// Mongoose Property Schema
+// DONE: name
+// DONE: description
+// DONE: price per night
+// WORKING ON: Images, availability
 const PropertySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -142,7 +147,10 @@ const PropertySchema = new mongoose.Schema({
 // setting up mongoose schema and model
 const Property = mongoose.model('Property', PropertySchema);
 
-// booking schema
+// Mongoose Booking Schema
+// DONE: user
+// DONE: property
+// WORKING ON: status
 const BookingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
