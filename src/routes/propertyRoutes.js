@@ -1,6 +1,9 @@
+import express from 'express';
+import { getProperties } from '../controllers/propertyController.js';
 
-// Placeholder for properties listings
-const properties = ['Yallambee', 'Coming Soon']
+const router = express.Router();
 
-// Get properties
-app.get('/properties', (req, res) => res.send(properties))
+// Get properties route
+router.get('/', getProperties);
+
+export default router;
