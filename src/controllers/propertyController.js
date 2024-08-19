@@ -38,7 +38,6 @@ export const getPropertyById = async (req, res) => {
 
 // Create a new property
 export const createProperty = async (req, res) => {
-    // Validate incoming data
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -46,9 +45,7 @@ export const createProperty = async (req, res) => {
 
     try {
         const newProperty = new Property(req.body);
-        // Save the new property to the database
         await newProperty.save();
-        // Sending the created property as JSON
         res.status(201).json(newProperty);
     } catch (error) {
         res.status(400).json({ message: 'Error: Unable to create property' });
