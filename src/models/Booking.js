@@ -16,12 +16,21 @@ const BookingSchema = new mongoose.Schema({
         required: true,
     },
     startDate: {
+        // Booking start date
         type: Date,
         required: true,
     },
     endDate: {
+        // Booking end date
         type: Date,
         required: true,
+        validate: {
+            validator: function(value) {
+                // Ensuring the endDate is at least 1 day after the startDate
+                return value > this.startDate && (value - this.startDate) >= 24 * 60 * 60 * 1000; // 1 day in milliseconds
+            },
+            message: "End date for booking must be at least one day after the start date."
+        }
     },
     status: {
         type: String,
@@ -29,7 +38,7 @@ const BookingSchema = new mongoose.Schema({
         enum: ['Pending', 'Confirmed', 'Cancelled'],
         default: 'Pending',
     },
-});
+}, { timestamps: true }); // Adding timestamps to booking schema
 
 // setting up mongoose schema and model
 const Booking = mongoose.model('Booking', BookingSchema);
