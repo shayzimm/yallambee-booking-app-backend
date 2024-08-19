@@ -24,9 +24,15 @@ const PropertySchema = new mongoose.Schema({
         min: 0,
     },
     availability: {
-        // TO DO: Array of dates when the property is available
+        // Added avaliability basic validatior for bookings
         type: [Date],
         required: true,
+        validate: {
+            validator: function (arr) {
+                return arr.every(date => date instanceof Date);
+            },
+            message: 'Please provide valid dates'
+        }
     },
     images: {
         // TO DO: Array of image URLs

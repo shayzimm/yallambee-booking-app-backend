@@ -34,23 +34,23 @@ const UserSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: false,
+        required: false, // Temporarily set to false for development
         trim: true
     },
     lastName: {
         type: String,
-        required: false,
+        required: false, // Temporarily set to false for development
         trim: true
     },
     phone: {
         type: String,
-        required: false,
+        required: false, // Temporarily set to false for development
         // Basic phone number validation setting 10-15 digits
         match: [/^\d{10,15}$/, 'Please provide a valid phone number'] 
     },
     dob: {
         type: Date,
-        required: false,
+        required: false, // Temporarily set to false for development
         // Age validation so user must be 18+
         validate: {
             validator: function(value) {
@@ -60,11 +60,21 @@ const UserSchema = new mongoose.Schema({
             },
             message: 'User must be 18 or older'
         }
+    },
+    password: {
+        type: String,
+        required: false  // Temporarily set to false for development
+    },
+    isAdmin: {
+        // Default to false for regular users
+        type: Boolean,
+        default: false
     }
 }, {
-    // Automatically adds time stamps createdAt and updatedAt for tracking
+    // Automatically adds createdAt and updatedAt fields
     timestamps: true 
 });
+
 
 // Added a pre save hook to hash passwords using bcrypt before saving the user to the database.
 UserSchema.pre('save', async function (next) {
