@@ -6,10 +6,10 @@ import propertyRoutes from './src/routes/propertyRoutes.js';
 
 const app = express();
 
-// Connect to the database
+// Connect to the MongoDB
 connectDB();
 
-// Middleware
+// Middleware to parse JSON requests
 app.use(express.json());
 
 // Routes
