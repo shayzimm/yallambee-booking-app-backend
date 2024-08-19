@@ -1,5 +1,7 @@
 // Importing Property from Index.js
-import { Property } from '../models/index.js'
+import { Property } from '../models/index.js';
+// Importing validationResult from express-validator for input validation
+import { validationResult } from 'express-validator';
 
 // CRUD operations for Property
 // DONE: GetProperties/getPropertyByID - READ
@@ -30,37 +32,43 @@ export const getPropertyById = async (req, res) => {
         // Send the property as JSON
         res.status(200).json(property);
     } catch (error) {
-        // Basic error handline
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Server Error: Unable to retrieve the property' });
     }
 };
 
 // Create a new property
 export const createProperty = async (req, res) => {
+    // Validate incoming data
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-        // Creating a new property instance
         const newProperty = new Property(req.body);
         // Save the new property to the database
         await newProperty.save();
         // Sending the created property as JSON
         res.status(201).json(newProperty);
     } catch (error) {
-        // Basic error handling
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: 'Error: Unable to create property' });
     }
 };
 
 // Update a property
 export const updateProperty = async (req, res) => {
+    // Validate incoming data
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-        // Update the property
         const updatedProperty = await Property.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedProperty) return res.status(404).json({ message: 'Property not found' });
-        // Send the updated property as JSON
         res.status(200).json(updatedProperty);
     } catch (error) {
-        // Basic error handling
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: 'Error: Unable to update property' });
     }
 };
 
@@ -70,10 +78,8 @@ export const deleteProperty = async (req, res) => {
         // Delete the property
         const deletedProperty = await Property.findByIdAndDelete(req.params.id);
         if (!deletedProperty) return res.status(404).json({ message: 'Property not found' });
-        // Confirm deletion
-        res.status(200).json({ message: 'Property deleted' });
+        res.status(200).json({ message: 'Property deleted successfully' });
     } catch (error) {
-        // Basic error handling
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Error: Unable to delete property' });
     }
 };
