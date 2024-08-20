@@ -166,7 +166,7 @@ export const loginUser = [
             // if pass/hash valid, JWT is generated with user ID and admin status and expiry is set to 1hr.
             const token = jwt.sign(
                 { id: user._id, isAdmin: user.isAdmin },
-                process.env.JWT_SECRET,  // Ensure this is set and not undefined
+                process.env.JWT_SECRET, 
                 { expiresIn: '1h' }
             );
 

@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/', homeRoutes);
-app.use('/', userRoutes);
+app.use('/', userRoutes); // Tested user routes locally 
 app.use('/', propertyRoutes);
 
 export default app;

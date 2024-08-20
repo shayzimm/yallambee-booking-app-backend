@@ -28,4 +28,4 @@ router.delete('/users/:id', deleteUser);
 // Route to login a user
 router.post('/login', loginUser);
 
-export default router;
+export default router
