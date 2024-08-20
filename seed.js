@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { User, Property } from './src/models/index.js';
+import { User, Property, Booking } from './src/models/index.js';
 import connectDB from './src/config/db.js';
 
 const users = [
@@ -35,24 +35,55 @@ const properties = [
     },
 ];
 
+const bookings = [
+    {
+        startDate: new Date('2024-09-01'),
+        endDate: new Date('2024-09-02'),
+        status: 'Confirmed'
+    },
+    {
+        startDate: new Date('2024-10-01'),
+        endDate: new Date('2024-10-03'),
+        status: 'Pending'
+    },
+    {
+        startDate: new Date('2024-11-15'),
+        endDate: new Date('2024-11-20'),
+        status: 'Cancelled'
+    }
+];
+
 // Async function to seed the database
 async function seedDatabase() {
     try {
         await connectDB(); // Ensure database is connected
 
-        // Delete existing users and properties
+        // Delete existing users, properties, and bookings
         await User.deleteMany();
         console.log('Deleted Users');
 
-        await User.insertMany(users);
+        const createdUsers = await User.insertMany(users);
         console.log('Added Users');
 
         await Property.deleteMany();
         console.log('Deleted Properties');
 
-        await Property.insertMany(properties);
+        const createdProperties = await Property.insertMany(properties);
         console.log('Added Properties');
-        
+
+        await Booking.deleteMany();
+        console.log('Deleted Bookings');
+
+        // Assign bookings to users and properties
+        const bookingData = bookings.map((booking, index) => ({
+            ...booking,
+            user: createdUsers[index % createdUsers.length]._id, // Rotate through the created users
+            property: createdProperties[index % createdProperties.length]._id // Rotate through the created properties
+        }));
+
+        await Booking.insertMany(bookingData);
+        console.log('Added Bookings');
+
     } catch (error) {
         console.error('Error seeding the database:', error);
     } finally {

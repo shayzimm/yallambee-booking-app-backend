@@ -57,6 +57,7 @@
     - [GitHub Workflow](#github-workflow)
     - [Client Feedback](#client-feedback)
     - [API Specifications](#api-specifications)
+    - [Application Commands](#application-commands)
   - [Appendix](#appendix)
     - [References](#references)
     - [Contributors](#contributors)
@@ -677,9 +678,9 @@ Our draft API specs can be found [here](docs/project_management/API_specs.md).
 
 ### Application Commands
 
-npm install - Installs dependencies listed in package.json
-npm start - Starts the application using node index.js (to be updated)
-npm run seed - Populates database with initial data
+- `npm install` - Installs dependencies listed in package.json
+- `npm start` - Starts the application using node index.js (to be updated)
+- `npm run seed` - Populates database with initial data
 
 ## Appendix
 
