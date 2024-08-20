@@ -34,44 +34,6 @@ export const getBookingById = async (req, res) => {
 };
 
 // Create a new booking
-// export const createBooking = [
-//     protect, // JWT authentication
-//     async (req, res) => {
-//         // Validate request body
-//         const errors = validationResult(req);
-//         if (!errors.isEmpty()) {
-//             return res.status(400).json({ errors: errors.array() });
-//         }
-
-//         try {
-//             // Associate the booking with the logged-in user
-//             const newBooking = new Booking({
-//                 ...req.body,
-//                 user: req.user.id, // Associate with the authenticated user
-//             });
-//             await newBooking.save();
-//             res.status(201).json(newBooking);
-//         } catch (error) {
-//             res.status(400).json({ message: 'Error: Unable to create booking' });
-//         }
-//     }
-// ];
-// Log error message:
-// export const createBooking = async (req, res) => {
-//     try {
-//         // Create a new booking instance
-//         const newBooking = new Booking(req.body);
-//         // Save the new booking to the database
-//         await newBooking.save();
-//         // Send the created booking as JSON
-//         res.status(201).json(newBooking);
-//     } catch (error) {
-//         // Log the error to the console
-//         console.error('Error during booking creation:', error);
-//         // Basic error handling
-//         res.status(400).json({ message: `Error: Unable to create booking. ${error.message}` });
-//     }
-// };
 export const createBooking = [
     protect, // JWT authentication
     async (req, res) => {
