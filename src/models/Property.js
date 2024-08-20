@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 // Mongoose Property Schema
 // DONE: name
@@ -24,7 +24,7 @@ const PropertySchema = new mongoose.Schema({
         min: 0,
     },
     availability: {
-        // Added avaliability basic validatior for bookings
+        // Added availability basic validator for bookings
         type: [Date],
         required: true,
         validate: {
@@ -35,9 +35,14 @@ const PropertySchema = new mongoose.Schema({
         }
     },
     images: {
-        // TO DO: Array of image URLs
         type: [String],
         required: true,
+        validate: {
+            validator: function (arr) {
+                return arr.every(url => /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/.test(url));
+            },
+            message: 'Please provide valid image URLs'
+        }
     },
     location: {
         // Details about the property location
@@ -61,7 +66,7 @@ const PropertySchema = new mongoose.Schema({
     },
 });
 
-// setting up mongoose schema and model
+// Setting up mongoose schema and model
 const Property = mongoose.model('Property', PropertySchema);
 
 export default Property;
