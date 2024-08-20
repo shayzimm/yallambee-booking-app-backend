@@ -7,25 +7,34 @@ import {
     deleteUser,
     loginUser
 } from '../controllers/userController.js'
+import { protect } from '../middleware/auth.js'
 
 const router = express.Router();
 
 // Route to get all users
-router.get('/users', getAllUsers);
+// Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
+router.get('/users', protect, getAllUsers);
 
 // Route to get a single user by ID
-router.get('/users/:id', getUserById);
+// Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
+router.get('/users/:id', protect, getUserById);
 
 // Route to create a new user
 router.post('/users', createUser);
 
 // Route to update a user by ID
-router.put('/users/:id', updateUser);
+// Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
+router.put('/users/:id', protect, updateUser);
 
 // Route to delete a user by ID
-router.delete('/users/:id', deleteUser);
+// Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
+router.delete('/users/:id', protect, deleteUser);
 
 // Route to login a user
 router.post('/login', loginUser);
 
-export default router;
+export default router

@@ -43,14 +43,11 @@ export const createUser = [
                 return res.status(400).json({ message: 'Email is already registered' });
             }
 
-            // Hash the password
-            const hashedPassword = await bcrypt.hash(password, 10);
-
             // Create a new user
             const newUser = new User({
                 email,
                 username,
-                password: hashedPassword,
+                password, // Removed Hashed password for plain text password (hashing done in userSchema)
                 firstName,
                 lastName,
                 phone,
@@ -68,26 +65,29 @@ export const createUser = [
 
 // Get all users
 // Retrieves and returns all users from the database
-export const getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json({ message: 'Error retrieving users' });
-    }
+export const getAllUsers =
+    async (req, res) => {
+        try {
+            const users = await User.find();
+            res.status(200).json(users);
+        } catch (err) {
+            res.status(500).json({ message: 'Error retrieving users' });
+        }
 };
 
 // Get a single user by ID
-export const getUserById = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.status(200).json(user);
-    } catch (err) {
+// Added protext middleware from auth
+export const getUserById =
+   async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        } catch (err) {
         res.status(500).json({ message: 'Error retrieving user' });
-    }
+        }
 };
 
 // Update a user by ID
@@ -166,7 +166,7 @@ export const loginUser = [
             // if pass/hash valid, JWT is generated with user ID and admin status and expiry is set to 1hr.
             const token = jwt.sign(
                 { id: user._id, isAdmin: user.isAdmin },
-                process.env.JWT_SECRET,  // Ensure this is set and not undefined
+                process.env.JWT_SECRET, 
                 { expiresIn: '1h' }
             );
 
