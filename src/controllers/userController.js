@@ -1,6 +1,7 @@
 // Importing User from index.js
 import { User } from '../models/index.js'
 import { body, validationResult } from 'express-validator'
+import { protect } from '../middleware/auth.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -68,27 +69,35 @@ export const createUser = [
 
 // Get all users
 // Retrieves and returns all users from the database
-export const getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).json(users);
-    } catch (err) {
-        res.status(500).json({ message: 'Error retrieving users' });
+// added protect middlware from auth.js
+export const getAllUsers = [
+    protect, 
+    async (req, res) => {
+        try {
+            const users = await User.find();
+            res.status(200).json(users);
+        } catch (err) {
+            res.status(500).json({ message: 'Error retrieving users' });
+        }
     }
-};
+];
 
 // Get a single user by ID
-export const getUserById = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.status(200).json(user);
-    } catch (err) {
+// Added protext middleware from auth
+export const getUserById = [ 
+    protect,
+    async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id);
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.status(200).json(user);
+        } catch (err) {
         res.status(500).json({ message: 'Error retrieving user' });
-    }
-};
+        }
+    } 
+];
 
 // Update a user by ID
 export const updateUser = [
