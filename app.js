@@ -3,6 +3,7 @@ import connectDB from './src/config/db.js';
 import userRoutes from './src/routes/userRoutes.js';
 import homeRoutes from './src/routes/homeRoutes.js';
 import propertyRoutes from './src/routes/propertyRoutes.js';
+import bookingRoutes from './src/routes/bookingRoutes.js';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/', homeRoutes);
 app.use('/', userRoutes); // Tested user routes locally 
 app.use('/', propertyRoutes);
+app.use('/', bookingRoutes);
 
 export default app;
 
