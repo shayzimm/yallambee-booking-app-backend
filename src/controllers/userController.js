@@ -43,14 +43,11 @@ export const createUser = [
                 return res.status(400).json({ message: 'Email is already registered' });
             }
 
-            // Hash the password
-            const hashedPassword = await bcrypt.hash(password, 10);
-
             // Create a new user
             const newUser = new User({
                 email,
                 username,
-                password: hashedPassword,
+                password, // Removed Hashed password for plain text password (hashing done in userSchema)
                 firstName,
                 lastName,
                 phone,

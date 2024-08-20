@@ -13,10 +13,12 @@ const router = express.Router();
 
 // Route to get all users
 // Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
 router.get('/users', protect, getAllUsers);
 
 // Route to get a single user by ID
 // Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
 router.get('/users/:id', protect, getUserById);
 
 // Route to create a new user
@@ -24,10 +26,12 @@ router.post('/users', createUser);
 
 // Route to update a user by ID
 // Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
 router.put('/users/:id', protect, updateUser);
 
 // Route to delete a user by ID
 // Added protect middlware from auth.js to ensure auth of user
+// Tested with new middleware and all working as expected
 router.delete('/users/:id', protect, deleteUser);
 
 // Route to login a user
