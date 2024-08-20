@@ -1,7 +1,6 @@
 // Importing User from index.js
 import { User } from '../models/index.js'
 import { body, validationResult } from 'express-validator'
-import { protect } from '../middleware/auth.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
