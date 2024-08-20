@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { User, Property, Booking } from './src/models/index.js';
-import connectDB from './src/config/db.js';
+import { User, Property, Booking } from './models/index.js';
+import connectDB from './config/db.js';
 
 const users = [
     {
