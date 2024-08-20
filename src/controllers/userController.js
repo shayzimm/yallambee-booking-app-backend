@@ -69,9 +69,7 @@ export const createUser = [
 
 // Get all users
 // Retrieves and returns all users from the database
-// added protect middlware from auth.js
-export const getAllUsers = [
-    protect, 
+export const getAllUsers =
     async (req, res) => {
         try {
             const users = await User.find();
@@ -79,14 +77,12 @@ export const getAllUsers = [
         } catch (err) {
             res.status(500).json({ message: 'Error retrieving users' });
         }
-    }
-];
+};
 
 // Get a single user by ID
 // Added protext middleware from auth
-export const getUserById = [ 
-    protect,
-    async (req, res) => {
+export const getUserById =
+   async (req, res) => {
         try {
             const user = await User.findById(req.params.id);
             if (!user) {
@@ -96,8 +92,7 @@ export const getUserById = [
         } catch (err) {
         res.status(500).json({ message: 'Error retrieving user' });
         }
-    } 
-];
+};
 
 // Update a user by ID
 export const updateUser = [
