@@ -8,13 +8,15 @@ import {
     loginUser
 } from '../controllers/userController.js'
 import { protect } from '../middleware/auth.js'
+import { authoriseUser } from '../middleware/role.js';
 
 const router = express.Router();
 
 // Route to get all users
 // Added protect middlware from auth.js to ensure auth of user
+// added authroseUser middelware to determine admin role
 // Tested with new middleware and all working as expected
-router.get('/users', protect, getAllUsers);
+router.get('/users', protect, authoriseUser('admin'), getAllUsers); 
 
 // Route to get a single user by ID
 // Added protect middlware from auth.js to ensure auth of user
