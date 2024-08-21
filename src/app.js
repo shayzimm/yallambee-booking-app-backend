@@ -1,9 +1,9 @@
 import express from 'express';
-import connectDB from './src/config/db.js';
-import userRoutes from './src/routes/userRoutes.js';
-import homeRoutes from './src/routes/homeRoutes.js';
-import propertyRoutes from './src/routes/propertyRoutes.js';
-import bookingRoutes from './src/routes/bookingRoutes.js';
+import connectDB from './config/db.js';
+import userRoutes from './routes/userRoutes.js';
+import homeRoutes from './routes/homeRoutes.js';
+import propertyRoutes from './routes/propertyRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
 
 const app = express();
 
