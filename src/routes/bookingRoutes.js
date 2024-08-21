@@ -7,6 +7,7 @@ import {
     deleteBooking
 } from '../controllers/bookingController.js';
 import { protect } from '../middleware/auth.js';
+import { authoriseUser } from '../middleware/role.js';
 import { check } from 'express-validator';
 
 const router = express.Router();
@@ -20,19 +21,32 @@ const validateBooking = [
 ];
 
 // Routes
+
 // Get all bookings
-router.get('/booking', getBookings);
+// added authroseUser middelware to determine admin role
+// added protect middelware to auth logged in user
+// Tested locally
+router.get('/booking', authoriseUser('admin'), protect, getBookings);
 
 // Get a booking by ID
-router.get('/booking/:id', getBookingById);
+// added protect middelware to auth logged in user
+// Tested locally
+router.get('/booking/:id', protect, getBookingById);
 
 // Create a new booking
+// added protect middelware to auth logged in user
+// Tested locally
 router.post('/booking', protect, validateBooking, createBooking);
 
 // Update a booking
+// added protect middelware to auth logged in user
+// Tested locally
 router.put('/booking/:id', protect, validateBooking, updateBooking);
 
 // Delete a booking
-router.delete('/booking/:id', protect, deleteBooking);
+// added authroseUser middelware to determine admin role
+// added protect middelware to auth logged in user
+// Tested locally
+router.delete('/booking/:id', protect, authoriseUser('admin'), deleteBooking);
 
 export default router;
