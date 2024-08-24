@@ -66,14 +66,19 @@ export const updateBooking = [
         // Validate request body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            console.log('Validation errors:', errors.array()); // Debug validation errors
             return res.status(400).json({ errors: errors.array() });
         }
 
         try {
+            console.log('Updating booking with data:', req.body); // Debug request data
             const updatedBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!updatedBooking) return res.status(404).json({ message: 'Booking not found' });
-            res.status(200).json(updatedBooking); 
+
+            console.log('Booking updated:', updatedBooking); // Debug updated booking
+            res.status(200).json(updatedBooking);
         } catch (error) {
+            console.error('Error updating booking:', error); // Debug the error
             res.status(400).json({ message: 'Error: Unable to update booking' });
         }
     }
