@@ -28,7 +28,7 @@ const users = [
         lastName: 'User',
         phone: '1234567890',
         dob: new Date('1996-05-15'),
-        password: 'admin',
+        password: 'admin123',
         isAdmin: true
     },
 ];
