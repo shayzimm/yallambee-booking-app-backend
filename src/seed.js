@@ -19,6 +19,15 @@ const users = [
         phone: '9876543210',
         dob: new Date('1985-10-25'),
     },
+    {
+        username: 'Admin',
+        email: 'admin@example.com',
+        firstName: 'Admin',
+        lastName: 'User',
+        phone: '1234567890',
+        dob: new Date('1996-05-15'),
+        isAdmin: true
+    },
 ];
 
 const properties = [
