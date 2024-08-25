@@ -57,6 +57,7 @@
     - [GitHub Workflow](#github-workflow)
     - [Client Feedback](#client-feedback)
     - [API Specifications](#api-specifications)
+    - [Application Commands](#application-commands)
   - [Appendix](#appendix)
     - [References](#references)
     - [Contributors](#contributors)
@@ -675,6 +676,12 @@ Our draft API specs can be found [here](docs/project_management/API_specs.md).
 
 ---
 
+### Application Commands
+
+- `npm install` - Installs dependencies listed in package.json
+- `npm start` - Starts the application using node index.js (to be updated)
+- `npm run seed` - Populates database with initial data
+
 ## Appendix
 
 ### References
@@ -712,6 +719,8 @@ Our draft API specs can be found [here](docs/project_management/API_specs.md).
 - Netlify, 2023. *Netlify Documentation*. [online] Available at: <https://docs.netlify.com/>
 
 - Trello, 2023. *Trello Guide*. [online] Available at: <https://trello.com/en/guide> [Accessed 11 August 2024].
+
+- Express-Validator, 2024. *Express Docs*. [online] Available at: <https://express-validator.github.io/docs> [Accessed 17 August 2024].
 
 ### Contributors
 
