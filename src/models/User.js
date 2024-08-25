@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
         match: [/\S+@\S+\.\S+/, 'Please provide a valid email address'],
         // Min length for email
         minlength: 5,
-        // Max length for email
+        // Max length for emailcod
         maxlength: 100 
     },
     firstName: {

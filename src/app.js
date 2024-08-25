@@ -4,8 +4,11 @@ import userRoutes from './routes/userRoutes.js';
 import homeRoutes from './routes/homeRoutes.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import cors from 'cors'
 
 const app = express();
+
+app.use(cors())
 
 // Connect to the MongoDB
 connectDB();

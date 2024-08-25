@@ -19,6 +19,15 @@ const users = [
         phone: '9876543210',
         dob: new Date('1985-10-25'),
     },
+    {
+        username: 'admin',
+        email: 'admin@example.com',
+        firstName: 'Admin',
+        lastName: 'User',
+        phone: '1234567890',
+        dob: new Date('1990-01-01'),
+        isAdmin: false,
+    }
 ];
 
 const properties = [
@@ -33,6 +42,17 @@ const properties = [
         },
         ageRestriction: 18, // Minimum age required to book
     },
+    {
+        name: 'Rustic Villa',
+        description: 'A luxurious and rustic villa perfect for a honeymoon.',
+        price: 300,
+        availability: [new Date('2024-10-01'), new Date('2024-10-02'), new Date('2024-10-03')],
+        location: {
+            city: 'Yarrawonga',
+            state: 'VIC',
+        },
+        ageRestriction: 18, // Minimum age required to book
+    }
 ];
 
 const bookings = [

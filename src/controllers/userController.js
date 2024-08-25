@@ -139,7 +139,7 @@ export const deleteUser = async (req, res) => {
 
 // User login
 export const loginUser = [
-    // validataion for email and password 
+    // validataion for email and password
     body('email').isEmail().withMessage('Please provide a valid email'),
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     async (req, res) => {

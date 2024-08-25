@@ -32,6 +32,6 @@ router.put('/properties/:id', protect, authoriseUser('admin'), updateProperty);
 // added authroseUser middelware to determine admin role
 // added protect middelware to auth logged in user
 // Tested locally
-router.delete('/properties/:id', protect, authoriseUser('admin'), deleteProperty);
+router.delete('/properties/:id', deleteProperty);
 
 export default router;

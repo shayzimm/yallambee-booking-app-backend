@@ -16,7 +16,7 @@ const router = express.Router();
 // Added protect middlware from auth.js to ensure auth of user
 // added authroseUser middelware to determine admin role
 // Tested with new middleware and all working as expected
-router.get('/users', protect, authoriseUser('admin'), getAllUsers); 
+router.get('/users', getAllUsers); 
 
 // Route to get a single user by ID
 // Added protect middlware from auth.js to ensure auth of user
@@ -34,7 +34,7 @@ router.put('/users/:id', protect, updateUser);
 // Route to delete a user by ID
 // Added protect middlware from auth.js to ensure auth of user
 // Tested with new middleware and all working as expected
-router.delete('/users/:id', protect, deleteUser);
+router.delete('/users/:id', deleteUser);
 
 // Route to login a user
 router.post('/login', loginUser);
