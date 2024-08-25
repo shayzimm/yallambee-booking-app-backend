@@ -63,7 +63,7 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: false  // Temporarily set to false for development
+        required: true  // Temporarily set to false for development
     },
     isAdmin: {
         // Default to false for regular users
