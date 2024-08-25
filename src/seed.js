@@ -10,6 +10,7 @@ const users = [
         lastName: 'Doe',
         phone: '1234567890',
         dob: new Date('1996-05-15'),
+        password: 'password',
     },
     {
         username: 'janesmith',
@@ -18,6 +19,7 @@ const users = [
         lastName: 'Smith',
         phone: '9876543210',
         dob: new Date('1985-10-25'),
+        password: 'password',
     },
     {
         username: 'Admin',
@@ -26,6 +28,7 @@ const users = [
         lastName: 'User',
         phone: '1234567890',
         dob: new Date('1996-05-15'),
+        password: 'admin',
         isAdmin: true
     },
 ];
