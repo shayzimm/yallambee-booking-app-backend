@@ -23,30 +23,25 @@ const validateBooking = [
 // Routes
 
 // Get all bookings
-// added authroseUser middelware to determine admin role
-// added protect middelware to auth logged in user
-// Tested locally
-router.get('/booking', authoriseUser('admin'), protect, getBookings);
+// added protect middleware to auth logged in user
+// added authoriseUser middleware to determine admin role
+router.get('/booking', protect, authoriseUser('admin'), getBookings);
 
 // Get a booking by ID
-// added protect middelware to auth logged in user
-// Tested locally
+// added protect middleware to auth logged in user
 router.get('/booking/:id', protect, getBookingById);
 
 // Create a new booking
-// added protect middelware to auth logged in user
-// Tested locally
+// added protect middleware to auth logged in user
 router.post('/booking', protect, validateBooking, createBooking);
 
 // Update a booking
-// added protect middelware to auth logged in user
-// Tested locally
+// added protect middleware to auth logged in user
 router.put('/booking/:id', protect, validateBooking, updateBooking);
 
 // Delete a booking
-// added authroseUser middelware to determine admin role
-// added protect middelware to auth logged in user
-// Tested locally
+// added protect middleware to auth logged in user
+// added authoriseUser middleware to determine admin role
 router.delete('/booking/:id', protect, authoriseUser('admin'), deleteBooking);
 
 export default router;
