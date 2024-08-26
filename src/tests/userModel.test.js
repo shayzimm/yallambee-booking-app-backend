@@ -40,12 +40,21 @@ describe('User Model', () => {
 
     expect(user).toHaveProperty('_id');
     expect(user.username).toBe(userData.username);
+    expect(user.email).toBe(userData.email);
+    expect(user.firstName).toBe(userData.firstName);
+    expect(user.lastName).toBe(userData.lastName);
+    expect(user.phone).toBe(userData.phone);
+    expect(user.dob.toISOString()).toBe(userData.dob.toISOString());
   });
 
   it('should not create a user with an invalid email', async () => {
     const userData = {
       username: 'testuser',
       email: 'invalid-email',
+      firstName: 'Test',
+      lastName: 'User',
+      phone: '1234567890',
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
@@ -56,6 +65,10 @@ describe('User Model', () => {
     const userData = {
       username: 'TestUser1',
       email: 'testuser1@example.com',
+      firstName: 'Test',
+      lastName: 'User',
+      phone: '1234567890',
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
@@ -65,6 +78,10 @@ describe('User Model', () => {
       User.create({
         username: 'TestUser2',
         email: 'testuser1@example.com',
+        firstName: 'Test2',
+        lastName: 'User2',
+        phone: '0987654321',
+        dob: new Date('1996-06-15'),
         password: 'password456',
       })
     ).rejects.toThrow();
@@ -74,6 +91,10 @@ describe('User Model', () => {
     const userData = {
       username: 'testuser',
       email: 'testuser@example.com',
+      firstName: 'Test',
+      lastName: 'User',
+      phone: '1234567890',
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
@@ -87,6 +108,9 @@ describe('User Model', () => {
     const userData = {
       username: 'younguser',
       email: 'younguser@example.com',
+      firstName: 'Young',
+      lastName: 'User',
+      phone: '1234567890',
       dob: new Date('2010-01-01'), // Under 18
       password: 'password123',
     };
@@ -98,6 +122,10 @@ describe('User Model', () => {
     const userData = {
       username: 'testuser',
       email: 'testuser@example.com',
+      firstName: 'Test',
+      lastName: 'User',
+      phone: '1234567890',
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
@@ -110,7 +138,10 @@ describe('User Model', () => {
     const userData = {
       username: 'testuser',
       email: 'testuser@example.com',
+      firstName: 'Test',
+      lastName: 'User',
       phone: 'invalid-phone', // Invalid phone number
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
@@ -121,6 +152,10 @@ describe('User Model', () => {
     const userData = {
       username: 'testuser',
       email: 'testuser@example.com',
+      firstName: 'Test',
+      lastName: 'User',
+      phone: '1234567890',
+      dob: new Date('1996-05-15'),
       password: 'password123',
     };
 
