@@ -3,11 +3,13 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-const secretKey = process.env.JWT_SECRET; // Secret key
+// Secret key
+const secretKey = process.env.JWT_SECRET
 
 // JWT decode Testing Route
 router.get('/test-jwt', (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1]; // Token in the Authorization header
+    // Token required in the authorization header
+    const token = req.headers.authorization?.split(' ')[1]; 
 
     if (!token) {
         return res.status(400).json({ message: 'Token is missing' });
@@ -16,10 +18,17 @@ router.get('/test-jwt', (req, res) => {
     try {
         // Decode and verify the token
         const decodedToken = jwt.verify(token, secretKey);
+
+        // Extracts user ID from the decoded token
+        const userId = decodedToken.id;
+
         // Console logging the decoded token
-        console.log('Decoded Token:', decodedToken); 
-        res.json({ message: 'Token decoded successfully', decodedToken });
+        console.log('Decoded Token:', decodedToken);
+
+        // Should respond with success message, user ID, and the decoded token
+        res.json({ message: 'Token decoded successfully', userId, decodedToken });
     } catch (err) {
+        // Error if unable to decode
         console.error('Token decoding error:', err);
         res.status(401).json({ message: 'Invalid token', error: err.message });
     }
