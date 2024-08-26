@@ -11,7 +11,7 @@ import bcrypt from 'bcrypt'
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
+        required: false,
         // Min length for username
         minlength: 3,
         // Max length for username
@@ -34,23 +34,23 @@ const UserSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: false, // Temporarily set to false for development
+        required: true, // Temporarily set to false for development
         trim: true
     },
     lastName: {
         type: String,
-        required: false, // Temporarily set to false for development
+        required: true, // Temporarily set to false for development
         trim: true
     },
     phone: {
         type: String,
-        required: false, // Temporarily set to false for development
+        required: true, // Temporarily set to false for development
         // Basic phone number validation setting 10-15 digits
         match: [/^\d{10,15}$/, 'Please provide a valid phone number'] 
     },
     dob: {
         type: Date,
-        required: false, // Temporarily set to false for development
+        required: true, // Temporarily set to false for development
         // Age validation so user must be 18+
         validate: {
             validator: function(value) {

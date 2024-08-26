@@ -17,7 +17,12 @@ const validateUser = [
     // Checks if the email is valid
     body('email').isEmail().withMessage('Please provide a valid email'),
     // Ensures the username is a minimun of 3 characters
-    body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
+    // body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
+    body('firstName').isLength({ min: 3 }).withMessage('Must be at least 3 characters long'),
+    // Ensures the last name is a minimun of 3 characters
+    body('lastName').isLength({ min: 3 }).withMessage('Must be at least 3 characters long'),
+    // Checks if the phone number is valid
+    body('phone').matches(/^\+?[1-9]\d{1,14}$/).withMessage('Please provide a valid phone number'),
     // Ensures the password is a minimum of 6 characters
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     // Extra validation for date of birth
