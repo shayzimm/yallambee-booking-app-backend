@@ -5,6 +5,7 @@ import userRoutes from './routes/userRoutes.js';
 import homeRoutes from './routes/homeRoutes.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import testJwtRoute from './routes/jwtTestingRoute.js';
 
 const app = express();
 
@@ -27,5 +28,8 @@ app.use('/', homeRoutes);
 app.use('/', userRoutes); 
 app.use('/', propertyRoutes);
 app.use('/', bookingRoutes);
+
+// Route to test the JWT is decoding properly
+app.use('/', testJwtRoute)
 
 export default app;
