@@ -1,5 +1,6 @@
 // Importing User from index.js
 import { User } from '../models/index.js'
+import Booking from '../models/Booking.js'
 import { body, validationResult } from 'express-validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -88,6 +89,27 @@ export const getUserById =
         } catch (err) {
         res.status(500).json({ message: 'Error retrieving user' });
         }
+};
+
+// Get all bookings for a user by their ID
+export const getBookingsByUserId = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Find all bookings associated with the user ID and populate the property details
+        const bookings = await Booking.find({ user: id }).populate('property', 'name location');
+
+        // If no bookings are found, return a 404 status with a message
+        if (!bookings.length) {
+            return res.status(404).json({ message: 'No bookings found for this user' });
+        }
+
+        // Return the bookings with a 200 status
+        res.status(200).json(bookings);
+    } catch (error) {
+        // Handle any errors during the database operation
+        res.status(500).json({ message: error.message });
+    }
 };
 
 // Update a user by ID
