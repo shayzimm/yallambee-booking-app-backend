@@ -5,6 +5,7 @@ import {
     createUser,
     updateUser,
     deleteUser,
+    getBookingsByUserId,
     loginUser
 } from '../controllers/userController.js'
 import { protect } from '../middleware/auth.js'
@@ -22,6 +23,9 @@ router.get('/users', protect, authoriseUser('admin'), getAllUsers);
 // Added protect middlware from auth.js to ensure auth of user
 // Tested with new middleware and all working as expected
 router.get('/users/:id', protect, getUserById);
+
+// Route to get all bookings for a specific user by user ID
+router.get('/users/:id/bookings', protect, getBookingsByUserId);
 
 // Route to create a new user
 router.post('/users', createUser);
