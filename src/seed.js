@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 import { User, Property, Booking } from './models/index.js';
 import connectDB from './config/db.js';
 
@@ -65,16 +66,28 @@ const bookings = [
     }
 ];
 
+// Function to hash passwords before seeding
+const hashPasswords = async (users) => {
+    const hashedUsers = await Promise.all(users.map(async (user) => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        return { ...user, password: hashedPassword };
+    }));
+    return hashedUsers;
+};
+
 // Async function to seed the database
 async function seedDatabase() {
     try {
         await connectDB(); // Ensure database is connected
 
+        // Hash the passwords for the users
+        const usersWithHashedPasswords = await hashPasswords(users);
+
         // Delete existing users, properties, and bookings
         await User.deleteMany();
         console.log('Deleted Users');
 
-        const createdUsers = await User.insertMany(users);
+        const createdUsers = await User.insertMany(usersWithHashedPasswords);
         console.log('Added Users');
 
         await Property.deleteMany();
