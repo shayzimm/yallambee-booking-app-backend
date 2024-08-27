@@ -53,7 +53,7 @@ export const createUser = [
             const newUser = new User({
                 email,
                 username,
-                password, // Removed Hashed password for plain text password (hashing done in userSchema)
+                password, // Password hashing is donevin userSchema (user model pre-save hook)
                 firstName,
                 lastName,
                 phone,
@@ -61,8 +61,20 @@ export const createUser = [
                 isAdmin
             });
 
-            await newUser.save();
-            res.status(201).json({ message: 'User created successfully', user: newUser });
+            // Generate a JWT token for the new user and expiry is set to 1hr
+            const token = jwt.sign(
+                { id: newUser._id, isAdmin: newUser.isAdmin },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            // Returning the new JWT token and user information for frontend to store in 'localStorage' or 'sessionStorage'
+            // Tested locally and all working okay
+            res.status(201).json({
+                message: 'User created successfully',
+                token,
+                user: newUser
+            });
         } catch (err) {
             res.status(400).json({ message: err.message });
         }
