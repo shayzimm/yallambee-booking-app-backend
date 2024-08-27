@@ -49,11 +49,11 @@ export const createUser = [
                 return res.status(400).json({ message: 'Email is already registered' });
             }
 
-            // Create a new user
+            // Create a new user instance
             const newUser = new User({
                 email,
                 username,
-                password, // Password hashing is donevin userSchema (user model pre-save hook)
+                password, // Password hashing is done in userSchema (user model pre-save hook)
                 firstName,
                 lastName,
                 phone,
@@ -61,7 +61,10 @@ export const createUser = [
                 isAdmin
             });
 
-            // Generate a JWT token for the new user and expiry is set to 1hr
+            // Save the user to the database
+            await newUser.save();
+
+            // Generate a JWT token for the new user, with expiry set to 1 hour
             const token = jwt.sign(
                 { id: newUser._id, isAdmin: newUser.isAdmin },
                 process.env.JWT_SECRET,
@@ -69,7 +72,6 @@ export const createUser = [
             );
 
             // Returning the new JWT token and user information for frontend to store in 'localStorage' or 'sessionStorage'
-            // Tested locally and all working okay
             res.status(201).json({
                 message: 'User created successfully',
                 token,
