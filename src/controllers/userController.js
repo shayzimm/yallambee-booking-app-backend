@@ -68,7 +68,7 @@ export const createUser = [
                 { expiresIn: '1h' }
             );
 
-            // Returning the new JWTntoken and user information for frontend to store in in 'localStorage' or 'sessionStorage'
+            // Returning the new JWT token and user information for frontend to store in 'localStorage' or 'sessionStorage'
             // Tested locally and all working okay
             res.status(201).json({
                 message: 'User created successfully',
