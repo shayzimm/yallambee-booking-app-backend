@@ -10,7 +10,7 @@ This API uses JSON Web Tokens (JWT) for authentication. To access protected rout
 This API uses JSON Web Tokens (JWT) for authentication. To access protected routes, include the token in the ‘Authorization’ header.
 
 **Obtaining a JWT Token**
-To access protected routes within the Tiny Home Accommodation Booking Platform, users must authenticate themselves by obtaining a JSON Web Token (JWT). The token is issued upon successful login and must be included in the Authorization header of subsequent API requests.
+To access protected routes within the Tiny Home Accommodation Booking Platform, users must authenticate themselves by obtaining a JSON Web Token (JWT). The token is issued upon successful login or user creation and must be included in the Authorization header of subsequent API requests.
 
 **Login Endpoint for JWT Token**
   `POST /login`
@@ -39,6 +39,40 @@ To access protected routes within the Tiny Home Accommodation Booking Platform, 
     "role": "user"
   },
   "message": "Login successful"
+}
+
+**User Creation Endpoint for JWT Token**
+  `POST /login`
+  Reegisters a new user and automatically logs them in by issuing a JWT token upon successful account creation.
+  
+  **Request**
+  The registration request requires the user's details, such as email, password, first name, last name, phone, and optional date of birth.
+
+  **Sample Body**
+  Content Type: application/json
+  {
+  "email": "newuser@example.com",
+  "password": "newuserpassword",
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "phone": "+1234567890",
+  "dob": "1990-01-01"
+}
+
+**Response**
+On successful registration, the server responds with a JWT token, user information, and a success message.
+
+**Sample Response**
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjRlZjI3NzJhNjEyNmY3YmY2YjEzZiIsImlhdCI6MTYyOTk5MzYwNSwiZXhwIjoxNjMwMDAzNjA1fQ.4YzJWi3a0MR7fA8ezKfISZ-t0kZWB_zXw0kIx06Szn4",
+  "user": {
+    "id": "61f4ef2772a6126f7bf6b13f",
+    "name": "Jane Doe",
+    "email": "<newuser@example.com>",
+    "role": "user"
+  },
+  "message": "User created successfully"
 }
 
 ## User Endpoints
@@ -161,19 +195,17 @@ All endpoints related to users.
   If there was an issue retrieving users.  
 
 **Sample Response**  
-  {  
-    "message": "User created successfully",  
-    "user": {  
-      "\_id": "60c72b1f9b1d8c4a5e6d7f5a",  
-      "email": "<user@example.com>",  
-      "username": "user1",  
-      "firstName": "John",  
-      "lastName": "Doe",  
-      "phone": "123456789",  
-      "dob": "1990-01-01T00:00:00.000Z",  
-      "isAdmin": false  
-    }  
-  }
+  {
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjRlZjI3NzJhNjEyNmY3YmY2YjEzZiIsImlhdCI6MTYyOTk5MzYwNSwiZXhwIjoxNjMwMDAzNjA1fQ.4YzJWi3a0MR7fA8ezKfISZ-t0kZWB_zXw0kIx06Szn4",
+  "user": {
+    "id": "61f4ef2772a6126f7bf6b13f",
+    "name": "Jane Doe",
+    "email": "<newuser@example.com>",
+    "role": "user"
+  },
+  "message": "User created successfully"
+}
 
 ## 4. Update a user by ID
 
