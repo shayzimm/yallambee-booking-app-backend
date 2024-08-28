@@ -4,7 +4,8 @@ import {
     getBookingById,
     createBooking,
     updateBooking,
-    deleteBooking
+    deleteBooking,
+    getUnavailableDates
 } from '../controllers/bookingController.js';
 import { protect } from '../middleware/auth.js';
 import { authoriseUser } from '../middleware/role.js';
@@ -43,5 +44,8 @@ router.put('/booking/:id', protect, validateBooking, updateBooking);
 // added protect middleware to auth logged in user
 // added authoriseUser middleware to determine admin role
 router.delete('/booking/:id', protect, authoriseUser('admin'), deleteBooking);
+
+// Get unavailable dates for a specific property
+router.get('/booking/:propertyId/unavailable-dates', getUnavailableDates);
 
 export default router;

@@ -37,14 +37,27 @@ export const getBookingById = async (req, res) => {
 export const createBooking = [
     protect, // JWT authentication
     async (req, res) => {
-        // Validate request body
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
         try {
-            // Associate the booking with the logged-in user
+            // Check for date conflicts
+            const conflictingBooking = await Booking.findOne({
+                property: req.body.property,
+                $or: [
+                    {
+                        startDate: { $lte: req.body.endDate },
+                        endDate: { $gte: req.body.startDate }
+                    }
+                ]
+            });
+
+            if (conflictingBooking) {
+                return res.status(400).json({ message: 'Booking dates conflict with an existing booking' });
+            }
+
             const newBooking = new Booking({
                 ...req.body,
                 user: req.user.id, // Associate with the authenticated user
@@ -57,7 +70,6 @@ export const createBooking = [
         }
     }
 ];
-
 
 // Update a booking
 export const updateBooking = [
@@ -97,3 +109,33 @@ export const deleteBooking = [
         }
     }
 ];
+
+// Get unavailable dates for a property
+export const getUnavailableDates = async (req, res) => {
+    try {
+        const { propertyId } = req.params;
+
+        // Fetch all bookings for the given property
+        const bookings = await Booking.find({ property: propertyId });
+
+        // Calculate unavailable dates based on existing bookings
+        const unavailableDates = bookings.flatMap(booking => {
+            const startDate = new Date(booking.startDate);
+            const endDate = new Date(booking.endDate);
+            const dateRange = [];
+
+            while (startDate <= endDate) {
+                dateRange.push(new Date(startDate));
+                startDate.setDate(startDate.getDate() + 1);
+            }
+
+            return dateRange;
+        });
+
+        res.status(200).json(unavailableDates);
+    } catch (error) {
+        console.error('Error fetching unavailable dates:', error);
+        res.status(500).json({ message: 'Server Error: Unable to retrieve unavailable dates' });
+    }
+};
+
