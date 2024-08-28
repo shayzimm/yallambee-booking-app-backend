@@ -72,6 +72,15 @@ export const createUser = [
                 { expiresIn: '1h' }
             );
 
+            // Send a welcome email to the new user
+            await sendEmail(
+                newUser.email, 
+                'welcome', // Template key name from emailTemplates.js
+                {
+                    name: newUser.firstName // Passing the user’s first name to the template
+                }
+            );
+
             // Returning the new JWT token and user information for frontend to store in 'localStorage' or 'sessionStorage'
             res.status(201).json({
                 message: 'User created successfully',
@@ -229,13 +238,16 @@ export const testEmail = async (req, res) => {
     try {
         await sendEmail(
             testRecipient, 
-            'Test Email from Yallambee', 
-            'This is a test email to verify the email configuration.', 
-            '<p>This is a <strong>test email</strong> to verify the email configuration.</p>'
+            'bookingConfirmation', // Template key name from emailTemplates.js
+            {
+                subject: 'Test Email from Yallambee',
+                text: 'This is a test email to verify the email configuration.',
+                html: '<p>This is a <strong>test email</strong> to verify the email configuration.</p>'
+            }
         );
         res.status(200).send('Test email sent successfully');
     } catch (error) {
-        console.error('Error sending test email:', error); // Logs the full error
+        console.error('Error sending test email:', error); // Logs error message
         res.status(500).send(`Failed to send test email: ${error.message}`);
     }
 };
