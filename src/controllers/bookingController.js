@@ -2,6 +2,7 @@
 import { Booking } from '../models/index.js';
 import { validationResult } from 'express-validator';
 import { protect } from '../middleware/auth.js'; // Assuming you have JWT authentication middleware
+import sendEmail from '../services/sendEmail.js'
 
 // CRUD operations for Booking
 // DONE: getBookings/getBookingById - READ
@@ -50,6 +51,20 @@ export const createBooking = [
                 user: req.user.id, // Associate with the authenticated user
             });
             await newBooking.save();
+
+            // Extract start and end dates from the booking
+            const { startDate, endDate } = newBooking;
+
+            // Send "Booking Received" email to the user
+            await sendEmail(req.user.email, 'bookingReceived', {
+                // Variables needed for the template
+                name: req.user.firstName, 
+                bookingId: newBooking._id,
+                // Should convert the dates to a readable format
+                startDate: startDate.toLocaleDateString(), 
+                endDate: endDate.toLocaleDateString(),
+            });
+
             res.status(201).json(newBooking);
         } catch (error) {
             console.error('Error during booking creation:', error);
