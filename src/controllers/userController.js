@@ -2,6 +2,7 @@
 import { User } from '../models/index.js'
 import Booking from '../models/Booking.js'
 import { body, validationResult } from 'express-validator'
+import sendEmail from '../services/sendEmail.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -220,3 +221,21 @@ export const loginUser = [
         }
     }
 ];
+
+// Send email test function
+export const testEmail = async (req, res) => {
+    const testRecipient = req.body.email;
+
+    try {
+        await sendEmail(
+            testRecipient, 
+            'Test Email from Yallambee', 
+            'This is a test email to verify the email configuration.', 
+            '<p>This is a <strong>test email</strong> to verify the email configuration.</p>'
+        );
+        res.status(200).send('Test email sent successfully');
+    } catch (error) {
+        console.error('Error sending test email:', error); // Logs the full error
+        res.status(500).send(`Failed to send test email: ${error.message}`);
+    }
+};

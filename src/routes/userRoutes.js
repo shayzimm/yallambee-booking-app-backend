@@ -10,6 +10,7 @@ import {
 } from '../controllers/userController.js'
 import { protect } from '../middleware/auth.js'
 import { authoriseUser } from '../middleware/role.js';
+import { testEmail } from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -42,5 +43,8 @@ router.delete('/users/:id', protect, deleteUser);
 
 // Route to login a user
 router.post('/login', loginUser);
+
+// Test email route
+router.post('/test-email', testEmail);
 
 export default router
