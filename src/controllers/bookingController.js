@@ -92,6 +92,8 @@ export const updateBooking = [
 
             console.log('Booking updated:', updatedBooking); // Debug updated booking
             res.status(200).json(updatedBooking);
+
+
         } catch (error) {
             console.error('Error updating booking:', error); // Debug the error
             res.status(400).json({ message: 'Error: Unable to update booking' });

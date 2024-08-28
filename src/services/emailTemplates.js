@@ -35,12 +35,17 @@ export const emailTemplates = {
           <p>If you have any questions, feel free to <a href="mailto:support@yallambeetinyhomes.com">reach out to us</a>.</p>
           <p>We look forward to hosting you!</p>
           <p>Best regards,<br/>The Yallambee Team</p>
-        `,
-      },
-      bookingReceived: {
+        `
+    },
+    bookingReceived: {
         subject: 'Your Booking Request - Yallambee Tiny Homes',
-        text: 'Dear {{name}},\n\nWe have received your booking request. Our team will review it, and you will be notified upon confirmation.\n\nBooking Reference: {{bookingId}}\nBooking Dates: {{startDate}} to {{endDate}}\n\nThank you for choosing Yallambee Tiny Homes.',
-        html: '<h1>Dear {{name}},</h1><p>We have received your booking request. Our team will review it, and you will be notified upon confirmation.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>Booking Dates:</strong> {{startDate}} to {{endDate}}</p><p>Thank you for choosing Yallambee Tiny Homes!.</p>',
+        text: 'Dear {{name}},\n\nWe have received your booking request. Our team will review it, and you will be notified upon confirmation.\n\nBooking Reference: {{bookingId}}\nBooking Dates: {{startDate}} to {{endDate}}\n\nThank you for choosing Yallambee Tiny Homes!',
+        html: '<h1>Dear {{name}},</h1><p>We have received your booking request. Our team will review it, and you will be notified upon confirmation.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>Booking Dates:</strong> {{startDate}} to {{endDate}}</p><p>Thank you for choosing Yallambee Tiny Homes!</p>',
+    },
+    bookingUpdated: {
+        subject: 'Your Booking Has Been Updated - Yallambee Tiny Homes',
+        text: 'Dear {{name}},\n\nYour booking has been successfully updated.\n\nBooking Reference: {{bookingId}}\nNew Dates: {{startDate}} to {{endDate}}\n\nThank you for staying with Yallambee Tiny Homes.',
+        html: '<h1>Dear {{name}},</h1><p>Your booking has been successfully updated.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>New Dates:</strong> {{startDate}} to {{endDate}}</p><p>Thank you for staying with Yallambee Tiny Homes.</p>',
     },
     // Ability to add more templates as needed
   };
