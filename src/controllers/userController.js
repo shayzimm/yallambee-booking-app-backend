@@ -2,6 +2,7 @@
 import { User } from '../models/index.js'
 import Booking from '../models/Booking.js'
 import { body, validationResult } from 'express-validator'
+import sendEmail from '../services/sendEmail.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -69,6 +70,15 @@ export const createUser = [
                 { id: newUser._id, isAdmin: newUser.isAdmin },
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
+            );
+
+            // Send a welcome email to the new user
+            await sendEmail(
+                newUser.email, 
+                'welcome', // Template key name from emailTemplates.js
+                {
+                    name: newUser.firstName // Passing the user’s first name to the template
+                }
             );
 
             // Returning the new JWT token and user information for frontend to store in 'localStorage' or 'sessionStorage'
@@ -220,3 +230,24 @@ export const loginUser = [
         }
     }
 ];
+
+// Send email test function
+export const testEmail = async (req, res) => {
+    const testRecipient = req.body.email;
+
+    try {
+        await sendEmail(
+            testRecipient, 
+            'bookingConfirmation', // Template key name from emailTemplates.js
+            {
+                subject: 'Test Email from Yallambee',
+                text: 'This is a test email to verify the email configuration.',
+                html: '<p>This is a <strong>test email</strong> to verify the email configuration.</p>'
+            }
+        );
+        res.status(200).send('Test email sent successfully');
+    } catch (error) {
+        console.error('Error sending test email:', error); // Logs error message
+        res.status(500).send(`Failed to send test email: ${error.message}`);
+    }
+};
