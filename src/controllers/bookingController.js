@@ -2,6 +2,7 @@
 import { Booking } from '../models/index.js';
 import { validationResult } from 'express-validator';
 import { protect } from '../middleware/auth.js'; // Assuming you have JWT authentication middleware
+import User from '../models/User.js';
 import sendEmail from '../services/sendEmail.js'
 
 // CRUD operations for Booking
@@ -87,16 +88,30 @@ export const updateBooking = [
 
         try {
             console.log('Updating booking with data:', req.body); // Debug request data
+
+            // Finding and updating the booking
             const updatedBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (!updatedBooking) return res.status(404).json({ message: 'Booking not found' });
 
             console.log('Booking updated:', updatedBooking); // Debug updated booking
-            res.status(200).json(updatedBooking);
 
+            // Finding the user who made the booking
+            const user = await User.findById(updatedBooking.user);
+            if (!user) return res.status(404).json({ message: 'User not found' });
 
+            // Sending email notification of updates
+            await sendEmail(user.email, 'bookingUpdated', {
+                name: user.firstName,
+                bookingId: updatedBooking._id,
+                startDate: new Date(updatedBooking.startDate).toLocaleDateString(),
+                endDate: new Date(updatedBooking.endDate).toLocaleDateString(),
+            });
+
+            // Responding with updated booking
+            return res.status(200).json(updatedBooking);
         } catch (error) {
             console.error('Error updating booking:', error); // Debug the error
-            res.status(400).json({ message: 'Error: Unable to update booking' });
+            return res.status(400).json({ message: 'Error: Unable to update booking' });
         }
     }
 ];
