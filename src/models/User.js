@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 
+
 // Mongoose User Schema
 // DONE: age validation for user 18+
 // DONE: implement length validation for username and email
