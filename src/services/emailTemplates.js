@@ -47,5 +47,10 @@ export const emailTemplates = {
         text: 'Dear {{name}},\n\nYour booking has been successfully updated.\n\nBooking Reference: {{bookingId}}\nNew Dates: {{startDate}} to {{endDate}}\n\nThank you for staying with Yallambee Tiny Homes.',
         html: '<h1>Dear {{name}},</h1><p>Your booking has been successfully updated.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>New Dates:</strong> {{startDate}} to {{endDate}}</p><p>Thank you for staying with Yallambee Tiny Homes.</p>',
     },
+    passwordReset: {
+        subject: 'Password Reset Request - Yallambee Tiny Homes',
+        text: 'Hello {{name}},\n\nYou requested to reset your password. Please click the link below to reset it:\n\n{{resetUrl}}\n\nIf you did not request this, please ignore this email.',
+        html: '<h1>Hello {{name}},</h1><p>You requested to reset your password. Please click the link below to reset it:</p><a href="{{resetUrl}}">Reset Password</a><p>If you did not request this, please ignore this email.</p>',
+      },
     // Ability to add more templates as needed
   };
