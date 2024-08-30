@@ -36,9 +36,9 @@ const users = [
 
 const properties = [
     {
-        name: 'Cozy Tiny Home',
-        description: 'A charming and cozy tiny home perfect for a tranquil getaway.',
-        price: 150,
+        name: 'Off-Grid Getaway',
+        description: 'Peaceful off-grid tiny home set alongside the Bolong River and amongst the rolling hills of Golspie.',
+        price: 250,
         availability: [new Date('2024-09-01'), new Date('2024-09-02')],
         location: {
             city: 'Yallambee',
@@ -46,6 +46,28 @@ const properties = [
         },
         ageRestriction: 18, // Minimum age required to book
     },
+    {
+        name: 'House Upon the Sand',
+        description: '1920s cabin with a front-row seat to the grandeur of the Hood Canal.',
+        price: 350,
+        availability: [new Date('2024-09-01'), new Date('2024-09-02')],
+        location: {
+            city: 'Golspie',
+            state: 'NSW',
+        },
+        ageRestriction: 18, // Minimum age required to book
+    },
+    {
+        name: 'Up Among the Treetops',
+        description: 'Located in the heart of the forest, the perfect spot for a one-of-a-kind-getaway.',
+        price: 300,
+        availability: [new Date('2024-09-01'), new Date('2024-09-02')],
+        location: {
+            city: 'Crookwell',
+            state: 'NSW',
+        },
+        ageRestriction: 18, // Minimum age required to book
+    }
 ];
 
 const bookings = [
