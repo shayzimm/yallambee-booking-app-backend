@@ -1,7 +1,7 @@
 import transporter from '../services/emailConfig.js';
 import { emailTemplates } from './emailTemplates.js';
 
-// function for sending emails - Templetes are located in emailTemplates.js
+// function for sending emails - Templates are located in emailTemplates.js
 const sendEmail = async (to, templateName, variables = {}) => {
     try {
       const template = emailTemplates[templateName];

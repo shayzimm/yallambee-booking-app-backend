@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Outputs succsessful connection the the Node console or error mesasge
+// Outputs succsessful connection the the NPM console or error mesasge
 transporter.verify((error, success) => {
     if (error) {
         console.error('SMTP Nodemailer Configuration Error:', error);

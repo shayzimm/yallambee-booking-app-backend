@@ -251,3 +251,4 @@ export const testEmail = async (req, res) => {
         res.status(500).send(`Failed to send test email: ${error.message}`);
     }
 };
+
