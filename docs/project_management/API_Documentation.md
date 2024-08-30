@@ -685,7 +685,13 @@ This endpoint allows users to upload a file to the server. This is typically use
   If the booking with the specified ID does not exist.
   **500 Internal Server Error**  
   If there was an issue updating the booking.
-
+  
+  **Error Handling: Permissions Issues with /uploads Directory**
+  If your application encounters errors related to permissions when trying to read from or write to the /uploads directory, it typically means that the application does not have the necessary access rights to the directory. This can result in issues where files cannot be uploaded, saved, or accessed as intended.
+  **Possible Causes**
+  Insufficient Permissions: The user account under which your application is running may not have the required permissions to access or modify the /uploads directory.
+  File System Restrictions: The operating system or hosting environment may have restrictions or settings that prevent applications from writing to certain directories.
+  
 **Sample Response**
 {
   "success": true,
