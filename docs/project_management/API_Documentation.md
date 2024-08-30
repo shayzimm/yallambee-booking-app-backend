@@ -655,3 +655,44 @@ Authorization: Bearer \<JWT token\>
   If the booking with the specified ID does not exist.
   **500 Internal Server Error**  
   If there was an issue deleting the booking.
+
+## Upload Route Overview
+
+1. **POST /upload** - This endpoint allows users to upload a file to the server. This is typically used for uploading images, documents, or other files.
+
+## 1. Upload
+
+**Endpoint**  
+`POST /upload`
+
+**Description**  
+This endpoint allows users to upload a file to the server. This is typically used for uploading images, documents, or other files.
+
+**Request Body**
+`file` (Form) - The file to be uploaded. Must be sent as form-data. 
+`name` - Use name `image` for image uploads
+`value` - Set `Value` to the image being uploaded
+
+**Headers**  
+`Content-Type: multipart/form-data` 
+
+**Response**  
+  **200 OK**  
+  Booking updated successfully.
+  **400 Bad Request**  
+  Validation errors or missing required fields.
+  **404 Not Found**  
+  If the booking with the specified ID does not exist.
+  **500 Internal Server Error**  
+  If there was an issue updating the booking.
+
+**Sample Response**
+{
+  "success": true,
+  "message": "File uploaded successfully.",
+  "file": {
+    "filename": "example.jpg",
+    "path": "/uploads/example.jpg",
+    "size": 12345
+  }
+}
