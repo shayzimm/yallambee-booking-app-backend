@@ -2,6 +2,8 @@
 import { User } from '../models/index.js'
 import Booking from '../models/Booking.js'
 import { body, validationResult } from 'express-validator'
+import { emailTemplates } from '../services/emailTemplates.js'
+import transporter from '../services/emailConfig.js';
 import sendEmail from '../services/sendEmail.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -23,7 +25,7 @@ const validateUser = [
     // Ensures the last name is a minimun of 3 characters
     body('lastName').isLength({ min: 3 }).withMessage('Must be at least 3 characters long'),
     // Checks if the phone number is valid
-    body('phone').matches(/^\+?[1-9]\d{1,14}$/).withMessage('Please provide a valid phone number'),
+    body('phone').matches(/^[+]?[\d\s-]{7,20}$/).withMessage('Please provide a valid phone number'),
     // Ensures the password is a minimum of 6 characters
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     // Extra validation for date of birth
@@ -166,6 +168,18 @@ export const updateUser = [
                 // If user is not found 404 status is returned
                 return res.status(404).json({ message: 'User not found' });
             }
+
+            // Send email notification of updates to the user
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: user.email,
+                subject: emailTemplates.updateUser.subject,
+                text: emailTemplates.updateUser.text.replace('{{name}}', user.username),
+                html: emailTemplates.updateUser.html.replace('{{name}}', user.username)
+            };
+
+            await transporter.sendMail(mailOptions);
+
             // Returns a 200 status with a confirmation message and the updated user
             res.status(200).json({ message: 'User updated successfully', user });
         } catch (err) {
