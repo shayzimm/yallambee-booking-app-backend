@@ -6,6 +6,8 @@ import homeRoutes from './routes/homeRoutes.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import testJwtRoute from './routes/jwtTestingRoute.js';
+import uploadImage from './routes/uploadImage.js'
+
 
 const app = express();
 
@@ -23,11 +25,15 @@ app.use(cors(corsOptions));
 // Middleware to parse JSON requests
 app.use(express.json());
 
+
 // Routes
 app.use('/', homeRoutes);
 app.use('/', userRoutes); 
 app.use('/', propertyRoutes);
 app.use('/', bookingRoutes);
+
+// uploadImage route
+app.use('/', uploadImage);
 
 // Route to test the JWT is decoding properly
 app.use('/', testJwtRoute)
