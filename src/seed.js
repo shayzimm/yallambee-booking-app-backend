@@ -55,7 +55,9 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
-        imagePath: path.resolve(__dirname, '../src/uploads/off_grid_getaway.jpeg'), // image path
+        images: [
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725085696/yallamby110a9142_brvvht.jpg'
+        ]
     },
     {
         name: 'House Upon the Sand',
@@ -69,7 +71,9 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
-        imagePath: path.resolve(__dirname, '../src/uploads/house_upon_sand.jpeg'), // image path
+        images: [
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725088022/yallambee_images/z8hmsd0ffxb6opjua7dm.jpg'
+        ]
     },
     {
         name: 'Up Among the Treetops',
@@ -83,7 +87,9 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
-        imagePath: path.resolve(__dirname, '../src/uploads/up_among_treetops.jpeg'), // image path
+        images: [
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725088022/yallambee_images/oe8mtycgkm7u0twtvwwn.jpg'
+        ]
     }
 ];
 
