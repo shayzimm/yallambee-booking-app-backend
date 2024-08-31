@@ -2,6 +2,14 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { User, Property, Booking } from './models/index.js';
 import connectDB from './config/db.js';
+import cloudinary from './config/cloudinaryConfig.js';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// Get the current directory of the module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const users = [
     {
@@ -47,6 +55,7 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
+        imagePath: path.resolve(__dirname, '../src/uploads/off_grid_getaway.jpeg'), // image path
     },
     {
         name: 'House Upon the Sand',
@@ -60,6 +69,7 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
+        imagePath: path.resolve(__dirname, '../src/uploads/house_upon_sand.jpeg'), // image path
     },
     {
         name: 'Up Among the Treetops',
@@ -73,6 +83,7 @@ const properties = [
             state: 'NSW',
         },
         ageRestriction: 18,
+        imagePath: path.resolve(__dirname, '../src/uploads/up_among_treetops.jpeg'), // image path
     }
 ];
 
@@ -93,6 +104,22 @@ const bookings = [
         status: 'Cancelled'
     }
 ];
+
+// Function to upload an image to Cloudinary and get the URL
+const uploadImage = async (imagePath) => {
+    try {
+        console.log(`Uploading image from ${imagePath}`);
+        const result = await cloudinary.uploader.upload(imagePath, {
+            folder: 'yallambee_images',
+        });
+        console.log(`Image uploaded successfully: ${result.secure_url}`);
+
+        return result.secure_url;
+    } catch (error) {
+        console.error('Error uploading image to Cloudinary:', error);
+        throw error;
+    }
+};
 
 // Function to hash passwords before seeding
 const hashPasswords = async (users) => {
@@ -121,7 +148,15 @@ async function seedDatabase() {
         await Property.deleteMany();
         console.log('Deleted Properties');
 
-        const createdProperties = await Property.insertMany(properties);
+        // Upload images and add properties
+        const propertiesWithUrls = await Promise.all(properties.map(async (property) => {
+            if (property.imagePath) {
+                property.imageUrl = await uploadImage(property.imagePath);
+            }
+            return property;
+        }));
+
+        const createdProperties = await Property.insertMany(propertiesWithUrls);
         console.log('Added Properties');
 
         await Booking.deleteMany();
