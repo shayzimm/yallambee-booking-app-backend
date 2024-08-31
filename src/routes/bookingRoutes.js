@@ -5,7 +5,8 @@ import {
     createBooking,
     updateBooking,
     deleteBooking,
-    getUnavailableDates
+    getUnavailableDates,
+    createBookingByPropertyId
 } from '../controllers/bookingController.js';
 import { protect } from '../middleware/auth.js';
 import { authoriseUser } from '../middleware/role.js';
@@ -47,5 +48,8 @@ router.delete('/booking/:id', protect, authoriseUser('admin'), deleteBooking);
 
 // Get unavailable dates for a specific property
 router.get('/booking/:propertyId/unavailable-dates', getUnavailableDates);
+
+// New route to create a booking by property ID
+router.post('/booking/:propertyId', protect, createBookingByPropertyId);
 
 export default router;

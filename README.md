@@ -676,11 +676,133 @@ Our draft API specs can be found [here](docs/project_management/API_specs.md).
 
 ---
 
+### Yallambee Tiny Home Booking App Setup
+
+This guide will help you set up the backend of the Yallambee Tiny Homes Booking App on your local machine.
+
+**Prerequisites**
+Before you begin, ensure you have the following installed on your system.
+
+- Node.js (v22.4.0 or later).
+- npm (Node Package Manager) or yarnnpm (Node Package Manager) or yarn.
+- MongoDB (Ensure MongoDB is installed and running locally, or have a MongoDB Atlas connection string ready)
+
+**Clone The Repository**
+First, clone the repository to your local machine with the commands:
+`git clone` <https://github.com/shayzimm/yallambee-booking-app.git>
+`cd yallambee-booking-app`
+
+**Install Dependencies**
+Navigate to the project directory and install the required dependencies using npm or yarn:
+`npm install` or `yarn install`
+
+**Set Up Environment Variables**
+Create a .env file in the root directory of the project. You can use the .env.sample file as a template. Below is an example of what your .env file should look like:
+
+// MongoDB connection string
+MONGO_URI=mongodb://localhost:27017/yallambee
+
+// JWT Secret for token generation
+JWT_SECRET=your_jwt_secret
+
+// Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+// Email Service Configuration (e.g., using Gmail)
+EMAIL_SERVICE=gmail
+EMAIL_USERNAME=<your_email@gmail.com>
+EMAIL_PASSWORD=your_email_password
+
+Make sure to replace the placeholders (your_jwt_secret, your_cloudinary_cloud_name, etc.) with your actual configuration details.
+
+**Database Setup**
+you can use a cloud database service like MongoDB Atlas. Update the MONGO_URI in your .env file with the appropriate connection string.
+
+**Seed The Database**
+Run the seeding script (seed.js), to populate the database with initial data
+`node seed.js`
+
+**Running the Server**
+`npm Start` or `yarn start`
+The server should now be running on the port specified in your .env file (e.g http://localhost:5000)
+
+**Testing the Setup**
+Follow the API documentation to test routes and verify everything is working. (../docs/project_management/API_Documentation.md)
+
+**Running Tests**
+`npm test` or `yarn test`
+
 ### Application Commands
 
 - `npm install` - Installs dependencies listed in package.json
 - `npm start` - Starts the application using node index.js (to be updated)
 - `npm run seed` - Populates database with initial data
+
+## Libraries Used
+
+Our application integrates several key libraries to ensure functionality, security, and performance. Below is a list of these libraries, why they were chosen, and how they benefit the project:
+
+1. **bcrypt** (`^5.1.1`)  
+     **Purpose**: Used for hashing passwords.  
+     **Reason for Choosing**: Bcrypt is a widely trusted library for securely hashing passwords, which is essential for protecting user data. It adds an extra layer of security by making it difficult for attackers to retrieve original passwords even if the database is compromised.  
+     **Benefit**: Enhances security by providing strong hashing algorithms, protecting user credentials.
+
+2. **cloudinary** (`^2.4.0`)  
+     **Purpose**: Cloud-based image and video management.  
+     **Reason for Choosing**: Cloudinary provides easy integration for uploading, storing, and processing images and videos. This is essential for managing media content, especially for user-uploaded images in property listings.  
+     **Benefit**: Simplifies the management of media files, offers powerful transformations, and reduces server load.  
+
+3. **cors** (`^2.8.5`)  
+      **Purpose**: Middleware to enable Cross-Origin Resource Sharing (CORS).  
+      **Reason for Choosing**: CORS is critical for allowing resources to be requested from another domain, which is common in modern web applications where frontend and backend are often hosted separately.  
+      **Benefit**: Enables secure cross-origin requests, essential for frontend-backend communication.  
+
+4. **dotenv** (`^16.4.5`)  
+     **Purpose**: Loads environment variables from a `.env` file.  
+     **Reason for Choosing**: Dotenv allows sensitive information such as API keys, database credentials, and other configuration settings to be securely managed via environment variables.  
+     **Benefit**: Keeps sensitive data out of the codebase and ensures a consistent configuration across different environments (development, testing, production).  
+
+5. **express** (`^4.19.2`)  
+     **Purpose**: Web framework for Node.js.  
+     **Reason for Choosing**: Express is the most popular web framework for Node.js, known for its simplicity, flexibility, and robust features. It provides a foundation for building web applications and APIs.  
+     **Benefit**: Streamlines the development of server-side logic, routing, and middleware management.  
+
+6. **express-validator** (`^7.2.0`)  
+     **Purpose**: Middleware for validating and sanitizing user inputs.  
+     **Reason for Choosing**: Express-validator is crucial for ensuring that the data received from the user is valid, safe, and formatted correctly. It prevents common security issues like SQL injection and XSS attacks.  
+     **Benefit**: Enhances security and data integrity by validating and sanitizing inputs before they reach the backend logic.  
+
+7. **helmet** (`^7.1.0`)  
+     **Purpose**: Helps secure Express apps by setting various HTTP headers.  
+     **Reason for Choosing**: Helmet provides essential security features out of the box by setting HTTP headers that protect against well-known vulnerabilities.  
+     **Benefit**: Enhances the security of the application by mitigating common security threats.  
+
+8. **jsonwebtoken** (`^9.0.2`)  
+     **Purpose**: Handles JSON Web Tokens (JWT) for authentication.  
+     **Reason for Choosing**: JSON Web Tokens are a secure way of transmitting information between parties as a JSON object. They are commonly used for authentication in modern web applications.  
+     **Benefit**: Enables secure, stateless authentication, allowing the app to maintain a seamless user experience while protecting sensitive information.  
+
+9. **mongoose** (`^8.5.3`)  
+     **Purpose**: Object Data Modeling (ODM) library for MongoDB and Node.js.  
+     **Reason for Choosing**: Mongoose simplifies interactions with MongoDB by providing a schema-based solution to model data. It also handles data validation, casting, and business logic.  
+     **Benefit**: Simplifies database interactions, ensures data consistency, and speeds up development by providing an elegant API for MongoDB.  
+
+10. **morgan** (`^1.10.0`)  
+      **Purpose**: HTTP request logger middleware for Node.js.  
+      **Reason for Choosing**: Morgan is useful for logging requests to the server, which is essential for monitoring, debugging, and maintaining the application.  
+      **Benefit**: Provides insightful logging, which helps in tracking the performance and diagnosing issues in the server.  
+
+11. **multer** (`^1.4.5-lts.1`)  
+      **Purpose**: Middleware for handling `multipart/form-data`, used for file uploads.  
+      **Reason for Choosing**: Multer simplifies the process of handling file uploads in a Node.js/Express application, which is particularly useful for managing user-uploaded content like images.  
+      **Benefit**: Facilitates easy and secure file uploads, ensuring that uploaded files are managed efficiently.  
+
+12. **nodemailer** (`^6.9.14`)  
+      **Purpose**: Library for sending emails from Node.js.  
+      **Reason for Choosing**: Nodemailer is a powerful tool for sending emails, which is essential for user notifications, confirmations, and other email-based interactions in the application.  
+      **Benefit**: Simplifies the process of sending emails, supports various transport methods, and allows for templating, ensuring a seamless user communication experience.
 
 ## Appendix
 
