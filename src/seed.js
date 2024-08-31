@@ -57,11 +57,15 @@ const properties = [
         ageRestriction: 18,
         images: [
             'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_234,g_auto/v1725096171/5d5e5a09-04e7-4e8d-9d0a-9a44940fe4c4_bterhw.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095447/yallamby110a9807_twbx3g.jpg',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095439/yallamby110a9500_dyqq8x.jpg',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095437/yallamby110a7317_qenhso.jpg',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095437/yallamby110a9142_ujnzpb.jpg',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_234,g_auto/v1725096172/832ed347-0009-4ea3-8683-4e8aab0276ec_qiv8ta.webp'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725096172/832ed347-0009-4ea3-8683-4e8aab0276ec_qiv8ta.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725096178/635155a4-7d20-44bd-8691-935cd57b74ba_etpguw.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725096171/86b12c08-40b3-439b-bba0-cabb453fc1bd_suszcy.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095437/yallamby110a7317_qenhso.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095437/yallamby110a9142_ujnzpb.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095440/yallamby110a9462_yfvmy0.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095439/yallamby110a9578_t5obgz.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095439/yallamby110a9578_t5obgz.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725096171/5d5e5a09-04e7-4e8d-9d0a-9a44940fe4c4_bterhw.webp'
         ]
     },
     {
@@ -78,11 +82,11 @@ const properties = [
         ageRestriction: 18,
         images: [
             'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse1_lpzxam.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095297/sandhouse2_nddave.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse4_sl2wje.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse5_clpqr5.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse3_x3umfj.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095297/sandhouse6_qqlxmz.webp'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095297/sandhouse2_nddave.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095297/sandhouse6_qqlxmz.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095296/sandhouse3_x3umfj.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095296/sandhouse5_clpqr5.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095297/sandhouse2_nddave.webp'
         ]
     },
     {
@@ -99,11 +103,12 @@ const properties = [
         ageRestriction: 18,
         images: [
             'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse3_f7hxzt.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse2_q5rvng.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095319/treehouse6_mfdy9j.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse4_sba8yv.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095317/treehouse1_rbooi1.webp',
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095319/treehouse5_zcofxj.webp'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095317/treehouse1_rbooi1.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095318/treehouse4_sba8yv.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095318/treehouse2_q5rvng.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095319/treehouse6_mfdy9j.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095318/treehouse3_f7hxzt.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_1300,h_600,g_auto/v1725095319/treehouse5_zcofxj.webp'          
         ]
     }
 ];

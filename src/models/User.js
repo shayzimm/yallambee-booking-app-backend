@@ -45,13 +45,13 @@ const UserSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true, // Temporarily set to false for development
+        required: false, // Temporarily set to false for development
         // Basic phone number validation setting 10-15 digits
         match: [/^\d{10,15}$/, 'Please provide a valid phone number'] 
     },
     dob: {
         type: Date,
-        required: true, // Temporarily set to false for development
+        required: false, // Temporarily set to false for development
         // Age validation so user must be 18+
         validate: {
             validator: function(value) {

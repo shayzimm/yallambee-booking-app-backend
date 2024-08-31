@@ -25,11 +25,11 @@ const validateUser = [
     // Ensures the last name is a minimun of 3 characters
     body('lastName').isLength({ min: 3 }).withMessage('Must be at least 3 characters long'),
     // Checks if the phone number is valid
-    body('phone').matches(/^[+]?[\d\s-]{7,20}$/).withMessage('Please provide a valid phone number'),
+    // body('phone').matches(/^[+]?[\d\s-]{7,20}$/).withMessage('Please provide a valid phone number'),
     // Ensures the password is a minimum of 6 characters
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
     // Extra validation for date of birth
-    body('dob').optional().isISO8601().toDate().withMessage('Please provide a valid date of birth')
+    // body('dob').optional().isISO8601().toDate().withMessage('Please provide a valid date of birth')
 ];
 
 
