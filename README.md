@@ -676,11 +676,71 @@ Our draft API specs can be found [here](docs/project_management/API_specs.md).
 
 ---
 
+### Yallambee Tiny Home Booking App Setup
+
+This guide will help you set up the backend of the Yallambee Tiny Homes Booking App on your local machine.
+
+**Prerequisites**
+Before you begin, ensure you have the following installed on your system.
+
+- Node.js (v22.4.0 or later).
+- npm (Node Package Manager) or yarnnpm (Node Package Manager) or yarn.
+- MongoDB (Ensure MongoDB is installed and running locally, or have a MongoDB Atlas connection string ready)
+
+**Clone The Repository**
+First, clone the repository to your local machine with the commands:
+`git clone` <https://github.com/shayzimm/yallambee-booking-app.git>
+`cd yallambee-booking-app`
+
+**Install Dependencies**
+Navigate to the project directory and install the required dependencies using npm or yarn:
+`npm install` or `yarn install`
+
+**Set Up Environment Variables**
+Create a .env file in the root directory of the project. You can use the .env.sample file as a template. Below is an example of what your .env file should look like:
+
+// MongoDB connection string
+MONGO_URI=mongodb://localhost:27017/yallambee
+
+// JWT Secret for token generation
+JWT_SECRET=your_jwt_secret
+
+// Cloudinary Configuration
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+// Email Service Configuration (e.g., using Gmail)
+EMAIL_SERVICE=gmail
+EMAIL_USERNAME=<your_email@gmail.com>
+EMAIL_PASSWORD=your_email_password
+
+Make sure to replace the placeholders (your_jwt_secret, your_cloudinary_cloud_name, etc.) with your actual configuration details.
+
+**Database Setup**
+you can use a cloud database service like MongoDB Atlas. Update the MONGO_URI in your .env file with the appropriate connection string.
+
+**Seed The Database**
+Run the seeding script (seed.js), to populate the database with initial data
+`node seed.js`
+
+**Running the Server**
+`npm Start` or `yarn start`
+The server should now be running on the port specified in your .env file (e.g http://localhost:5000)
+
+**Testing the Setup**
+Follow the API documentation to test routes and verify everything is working. (../docs/project_management/API_Documentation.md)
+
+**Running Tests**
+`npm test` or `yarn test`
+
 ### Application Commands
 
 - `npm install` - Installs dependencies listed in package.json
 - `npm start` - Starts the application using node index.js (to be updated)
 - `npm run seed` - Populates database with initial data
+
+
 
 ## Appendix
 
