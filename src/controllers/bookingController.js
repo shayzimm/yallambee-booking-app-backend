@@ -87,6 +87,61 @@ export const createBooking = [
     }
 ];
 
+// Create a new booking by property ID
+export const createBookingByPropertyId = [
+    protect, // JWT authentication
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { propertyId } = req.params;
+
+        try {
+            // Check for date conflicts
+            const conflictingBooking = await Booking.findOne({
+                property: propertyId,
+                $or: [
+                    {
+                        startDate: { $lte: req.body.endDate },
+                        endDate: { $gte: req.body.startDate }
+                    }
+                ]
+            });
+
+            if (conflictingBooking) {
+                return res.status(400).json({ message: 'Booking dates conflict with an existing booking' });
+            }
+
+            const newBooking = new Booking({
+                ...req.body,
+                property: propertyId, // Associate with the selected property
+                user: req.user.id, // Associate with the authenticated user
+            });
+            await newBooking.save();
+
+            // Extract start and end dates from the booking
+            const { startDate, endDate } = newBooking;
+
+            // Send "Booking Received" email to the user
+            await sendEmail(req.user.email, 'bookingReceived', {
+                // Variables needed for the template
+                name: req.user.firstName,
+                bookingId: newBooking._id,
+                // Should convert the dates to a readable format
+                startDate: startDate.toLocaleDateString(),
+                endDate: endDate.toLocaleDateString(),
+            });
+
+            res.status(201).json(newBooking);
+        } catch (error) {
+            console.error('Error during booking creation:', error);
+            res.status(400).json({ message: `Error: Unable to create booking. ${error.message}` });
+        }
+    }
+];
+
 // Update a booking
 export const updateBooking = [
     protect, // JWT authentication

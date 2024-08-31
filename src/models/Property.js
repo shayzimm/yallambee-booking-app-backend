@@ -23,6 +23,16 @@ const PropertySchema = new mongoose.Schema({
         required: true,
         min: 0,
     },
+    size: {
+        type: Number,
+        required: true,
+        min: 0, // Ensure size is non-negative
+    },
+    maxPerson: {
+        type: Number,
+        required: true,
+        min: 1, // Ensure at least 1 person can stay
+    },
     availability: {
         // Added availability basic validator for bookings
         type: [Date],
