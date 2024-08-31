@@ -52,5 +52,30 @@ export const emailTemplates = {
         text: 'Hello {{name}},\n\nYou requested to reset your password. Please click the link below to reset it:\n\n{{resetUrl}}\n\nIf you did not request this, please ignore this email.',
         html: '<h1>Hello {{name}},</h1><p>You requested to reset your password. Please click the link below to reset it:</p><a href="{{resetUrl}}">Reset Password</a><p>If you did not request this, please ignore this email.</p>',
       },
+      updateUser: {
+        subject: 'Your Account Information Has Been Updated - Yallambee Tiny Homes',
+        text: `Hello {{name}},
+        
+        We wanted to let you know that your account information has been successfully updated. 
+        
+        If you did not make this change, please contact us immediately at support@yallambeetinyhomes.com.
+        
+        Thank you for keeping your account information up to date.
+        
+        Best regards,
+        The Yallambee Tiny Homes Team`,
+        
+        html: `<html>
+        <body>
+            <h1>Hello {{name}},</h1>
+            <p>We wanted to let you know that your account information has been successfully updated.</p>
+            <p>If you did not make this change, please <a href="mailto:support@yallambeetinyhomes.com">contact us immediately</a>.</p>
+            <p>Thank you for keeping your account information up to date.</p>
+            <br />
+            <p>Best regards,</p>
+            <p>The Yallambee Tiny Homes Team</p>
+        </body>
+        </html>`
+    },
     // Ability to add more templates as needed
   };
