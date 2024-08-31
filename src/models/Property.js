@@ -49,7 +49,7 @@ const PropertySchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function (arr) {
-                return arr.every(url => /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/.test(url));
+                return arr.every(url => /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/.test(url));
             },
             message: 'Please provide valid image URLs'
         }
