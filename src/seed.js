@@ -56,7 +56,12 @@ const properties = [
         },
         ageRestriction: 18,
         images: [
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725085696/yallamby110a9142_brvvht.jpg'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_234,g_auto/v1725096171/5d5e5a09-04e7-4e8d-9d0a-9a44940fe4c4_bterhw.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095447/yallamby110a9807_twbx3g.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095439/yallamby110a9500_dyqq8x.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095437/yallamby110a7317_qenhso.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095437/yallamby110a9142_ujnzpb.jpg',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_234,g_auto/v1725096172/832ed347-0009-4ea3-8683-4e8aab0276ec_qiv8ta.webp'
         ]
     },
     {
@@ -72,7 +77,12 @@ const properties = [
         },
         ageRestriction: 18,
         images: [
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725088022/yallambee_images/z8hmsd0ffxb6opjua7dm.jpg'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse1_lpzxam.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095297/sandhouse2_nddave.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse4_sl2wje.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse5_clpqr5.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095296/sandhouse3_x3umfj.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095297/sandhouse6_qqlxmz.webp'
         ]
     },
     {
@@ -88,7 +98,12 @@ const properties = [
         },
         ageRestriction: 18,
         images: [
-            'https://res.cloudinary.com/dvqfuaqon/image/upload/v1725088022/yallambee_images/oe8mtycgkm7u0twtvwwn.jpg'
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse3_f7hxzt.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse2_q5rvng.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095319/treehouse6_mfdy9j.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095318/treehouse4_sba8yv.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095317/treehouse1_rbooi1.webp',
+            'https://res.cloudinary.com/dvqfuaqon/image/upload/c_fill,w_360,h_230,g_auto/v1725095319/treehouse5_zcofxj.webp'
         ]
     }
 ];
