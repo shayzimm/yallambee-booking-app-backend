@@ -7,7 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-// Get the current directory of the module
+// Getting the current directory 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
