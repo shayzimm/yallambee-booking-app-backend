@@ -17,7 +17,7 @@ connectDB();
 // Enable CORS
 const corsOptions = {
   origin: '*', // CHANGE TO FRONTEND DOMAIN
-  methods: 'GET,POST,PUT,DELETE',
+  methods: 'GET,POST,PUT,DELETE,PATCH',
   allowedHeaders: 'Content-Type,Authorization',
 };
 app.use(cors(corsOptions));
