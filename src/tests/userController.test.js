@@ -3,7 +3,10 @@ import request from 'supertest';
 import app from '../app.js';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
+import cloudinary from '../config/cloudinaryConfig';
+import upload from '../config/multerConfig.js';
 
+// Mock middleware
 jest.mock('../middleware/auth', () => {
   const mongoose = require('mongoose');
   return {
@@ -13,6 +16,27 @@ jest.mock('../middleware/auth', () => {
       }),
   };
 });
+
+// Mocking cloudinary and nodemailer
+jest.mock('cloudinary', () => ({
+    v2: {
+      config: jest.fn(),
+      uploader: {
+        upload: jest.fn().mockResolvedValue({}),
+      },
+    },
+  }));
+  
+  jest.mock('nodemailer', () => ({
+    createTransport: jest.fn().mockReturnValue({
+      verify: jest.fn().mockResolvedValue(true),
+    }),
+  }));
+  
+  // Mocking multerConfig.js
+  jest.mock('../config/multerConfig.js', () => ({
+    single: jest.fn(),
+}));
 
 describe('User Controller', () => {
     let user;
@@ -45,12 +69,12 @@ describe('User Controller', () => {
                 password: 'newpassword',
                 firstName: 'New',
                 lastName: 'User',
-                phone: '1234567890', // Updated to match the expected phone number format
+                phone: '1234567890',
                 dob: '2000-01-01',
             });
-    
-        console.log(response.body); // Log the response body to see the validation errors
-    
+
+        console.log(response.body); // Log response body to debug
+
         expect(response.statusCode).toBe(201);
         expect(response.body).toHaveProperty('user');
         expect(response.body.user).toHaveProperty('email', 'newuser@example.com');
@@ -76,7 +100,7 @@ describe('User Controller', () => {
     it('should get all users', async () => {
         const response = await request(app)
             .get('/users')
-            .set('Authorization', `Bearer token`);
+            .set('Authorization', `Bearer mocktoken`); // Use a mock token
 
         expect(response.statusCode).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
@@ -85,7 +109,7 @@ describe('User Controller', () => {
     it('should get a user by ID', async () => {
         const response = await request(app)
             .get(`/users/${user._id}`)
-            .set('Authorization', `Bearer token`);
+            .set('Authorization', `Bearer mocktoken`); // Use a mock token
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toHaveProperty('email', 'testuser@example.com');
@@ -105,7 +129,7 @@ describe('User Controller', () => {
         const response = await request(app)
             .put(`/users/${user._id}`)
             .send(updatedUserData)
-            .set('Authorization', `Bearer token`);
+            .set('Authorization', `Bearer mocktoken`); // Use a mock token
 
         expect(response.statusCode).toBe(200);
         expect(response.body.user).toHaveProperty('firstName', 'Updated');
@@ -118,7 +142,7 @@ describe('User Controller', () => {
             .send({
                 phone: 'invalidphone',
             })
-            .set('Authorization', `Bearer token`);
+            .set('Authorization', `Bearer mocktoken`); // Use a mock token
 
         expect(response.statusCode).toBe(400);
         expect(response.body.errors).toBeDefined();
@@ -127,27 +151,26 @@ describe('User Controller', () => {
     it('should delete a user', async () => {
         const response = await request(app)
             .delete(`/users/${user._id}`)
-            .set('Authorization', `Bearer token`);
+            .set('Authorization', `Bearer mocktoken`); // Use a mock token
 
         expect(response.statusCode).toBe(204);
     });
 
     it('should login a user and return a JWT token', async () => {
-        // Login using one of the seeded users
         const loginData = {
-            email: 'newuser@example.com',  // Use the email from the seeded user
-            password: 'newpassword'  // Use the plaintext password used in the seeding process
+            email: 'testuser@example.com',
+            password: 'password123',
         };
-    
+
         const response = await request(app)
             .post('/login')
             .send(loginData);
-    
-        console.log(response.body); // Log the response body for debugging
-    
-        expect(response.statusCode).toBe(200);  // Expecting a 200 OK response
+
+        console.log(response.body); // Log response body for debugging
+
+        expect(response.statusCode).toBe(200);
         expect(response.body).toHaveProperty('token');
-    });   
+    });
 
     it('should return 404 for invalid login (user not found)', async () => {
         const response = await request(app)
@@ -162,27 +185,15 @@ describe('User Controller', () => {
     });
 
     it('should return 400 for invalid login (incorrect password)', async () => {
-        const user = await User.create({
-            username: 'TestUser',
-            email: 'testuser@example.com',
-            password: await bcrypt.hash('password123', 10),  // Ensure password is hashed correctly
-            firstName: 'Test',
-            lastName: 'User',
-            phone: '1234567890',
-            dob: new Date('2000-01-01'),
-        });
-    
-        const loginData = {
-            email: 'testuser@example.com',
-            password: 'wrongpassword',  // Intentionally wrong password
-        };
-    
         const response = await request(app)
             .post('/login')
-            .send(loginData);
-    
-        console.log(response.body); // Log the response body for debugging
-    
+            .send({
+                email: 'testuser@example.com',
+                password: 'wrongpassword',
+            });
+
+        console.log(response.body); // Log response body for debugging
+
         expect(response.statusCode).toBe(400);
         expect(response.body).toHaveProperty('message', 'Invalid credentials');
     });

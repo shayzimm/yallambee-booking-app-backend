@@ -24,8 +24,23 @@ afterAll(async () => {
 
 describe('Booking Model', () => {
     it('should create a booking with valid data', async () => {
-        const user = await User.create({ username: 'testuser', email: 'test@example.com', password: 'password123' });
-        const property = await Property.create({ name: 'Test Property', description: 'Test Description', price: 100, location: { city: 'Test City', state: 'Test State' } });
+        // Providing all required fields
+        const user = await User.create({
+            username: 'testuser',
+            email: 'test@example.com',
+            password: 'password123',
+            firstName: 'John',
+            lastName: 'Doe'
+        });
+
+        const property = await Property.create({
+            name: 'Test Property',
+            description: 'Test Description',
+            price: 100,
+            location: { city: 'Test City', state: 'Test State' },
+            maxPerson: 4, // Added maxPerson
+            size: 50 // Added size
+        });
 
         const booking = await Booking.create({
             user: user._id,
@@ -41,8 +56,22 @@ describe('Booking Model', () => {
     });
 
     it('should not create a booking if the end date is before the start date', async () => {
-        const user = await User.create({ username: 'testuser', email: 'test@example.com', password: 'password123' });
-        const property = await Property.create({ name: 'Test Property', description: 'Test Description', price: 100, location: { city: 'Test City', state: 'Test State' } });
+        const user = await User.create({
+            username: 'testuser',
+            email: 'test@example.com',
+            password: 'password123',
+            firstName: 'John',
+            lastName: 'Doe'
+        });
+
+        const property = await Property.create({
+            name: 'Test Property',
+            description: 'Test Description',
+            price: 100,
+            location: { city: 'Test City', state: 'Test State' },
+            maxPerson: 4, // Added maxPerson
+            size: 50 // Added size
+        });
 
         await expect(Booking.create({
             user: user._id,
@@ -53,8 +82,22 @@ describe('Booking Model', () => {
     });
 
     it('should not allow overlapping bookings for the same property', async () => {
-        const user = await User.create({ username: 'testuser', email: 'test@example.com', password: 'password123' });
-        const property = await Property.create({ name: 'Test Property', description: 'Test Description', price: 100, location: { city: 'Test City', state: 'Test State' } });
+        const user = await User.create({
+            username: 'testuser',
+            email: 'test@example.com',
+            password: 'password123',
+            firstName: 'John',
+            lastName: 'Doe'
+        });
+
+        const property = await Property.create({
+            name: 'Test Property',
+            description: 'Test Description',
+            price: 100,
+            location: { city: 'Test City', state: 'Test State' },
+            maxPerson: 4, // Added maxPerson
+            size: 50 // Added size
+        });
 
         await Booking.create({
             user: user._id,
@@ -72,8 +115,22 @@ describe('Booking Model', () => {
     });
 
     it('should default the booking status to Pending', async () => {
-        const user = await User.create({ username: 'testuser', email: 'test@example.com', password: 'password123' });
-        const property = await Property.create({ name: 'Test Property', description: 'Test Description', price: 100, location: { city: 'Test City', state: 'Test State' } });
+        const user = await User.create({
+            username: 'testuser',
+            email: 'test@example.com',
+            password: 'password123',
+            firstName: 'John',
+            lastName: 'Doe'
+        });
+
+        const property = await Property.create({
+            name: 'Test Property',
+            description: 'Test Description',
+            price: 100,
+            location: { city: 'Test City', state: 'Test State' },
+            maxPerson: 4, // Added maxPerson
+            size: 50 // Added size
+        });
 
         const booking = await Booking.create({
             user: user._id,
