@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProperties, getPropertyById, createProperty, updateProperty, deleteProperty } from '../controllers/propertyController.js';
+import { getProperties, getPropertyById, createProperty, updateProperty, deleteProperty, patchProperty } from '../controllers/propertyController.js';
 import { protect } from '../middleware/auth.js';
 import { authoriseUser } from '../middleware/role.js';
 
@@ -33,5 +33,11 @@ router.put('/properties/:id', protect, authoriseUser('admin'), updateProperty);
 // added protect middelware to auth logged in user
 // Tested locally
 router.delete('/properties/:id', protect, authoriseUser('admin'), deleteProperty);
+
+// NEW Route for partially updating a property
+// added authroseUser middelware to determine admin role
+// added protect middelware to auth logged in user
+// Tested locally
+router.patch('/properties/:id', protect, authoriseUser('admin'), patchProperty);
 
 export default router;
