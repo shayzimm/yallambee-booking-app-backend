@@ -9,6 +9,7 @@ dotenv.config();
 // Increase the timeout limit for Jest (default is 5000ms)
 jest.setTimeout(30000);
 
+
 describe('User Model', () => {
   beforeAll(async () => {
     // Connect to the MongoDB Atlas cluster using the DB_URI environment variable
