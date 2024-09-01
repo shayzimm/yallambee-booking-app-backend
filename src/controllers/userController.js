@@ -12,8 +12,8 @@ import jwt from 'jsonwebtoken'
 // DONE: getAllUsers/getUserByID - READ
 // DONE: createUser - CREATE
 // DONE: deleteUser - DELETE
-// DOING: loginUser - for better functionality
-// DOING: Better error handling, integrate validation and JWT for user/admin auth. 
+// DONE: loginUser - for better functionality
+// DONE: Better error handling, integrate validation and JWT for user/admin auth. 
 
 // Middleware for validating user input
 const validateUser = [
@@ -266,3 +266,52 @@ export const testEmail = async (req, res) => {
     }
 };
 
+// NEW PATCH update user by ID (partially updating)
+export const patchUser = [
+     // Applying validateUser middleware
+    validateUser, 
+    async (req, res) => {
+        const { id } = req.params;
+        const updateFields = req.body;
+
+        // Validating request body
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // validation errors
+            console.log('Validation errors:', errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            // Hashes password before updating it
+            if (updateFields.password) {
+                updateFields.password = await bcrypt.hash(updateFields.password, 10);
+            }
+
+            // Finding the user by ID and update with the new fields
+            const user = await User.findByIdAndUpdate(id, { $set: updateFields }, { new: true, runValidators: true });
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Sending an email notification about the update
+            if (updateFields.email || updateFields.username || updateFields.password) {
+                const mailOptions = {
+                    from: process.env.EMAIL_USER,
+                    to: user.email,
+                    subject: emailTemplates.updateUser.subject,
+                    text: emailTemplates.updateUser.text.replace('{{name}}', user.username),
+                    html: emailTemplates.updateUser.html.replace('{{name}}', user.username),
+                };
+
+                await transporter.sendMail(mailOptions);
+            }
+
+            // Returning the updated user details
+            res.status(200).json({ message: 'User updated successfully', user });
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+    }
+];

@@ -6,7 +6,8 @@ import {
     updateUser,
     deleteUser,
     getBookingsByUserId,
-    loginUser
+    loginUser,
+    patchUser
 } from '../controllers/userController.js'
 import { protect } from '../middleware/auth.js'
 import { authoriseUser } from '../middleware/role.js';
@@ -46,6 +47,11 @@ router.post('/login', loginUser);
 
 // Test email route
 router.post('/test-email', testEmail);
+
+// PATCH route for updating user
+// Added protect middlware from auth.js to ensure auth of user
+// Tested locally and all working okay, need to provide all fields in the json body
+router.patch('/users/:id', protect, patchUser);
 
 
 export default router

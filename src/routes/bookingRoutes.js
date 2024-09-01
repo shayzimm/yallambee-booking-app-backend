@@ -6,7 +6,8 @@ import {
     updateBooking,
     deleteBooking,
     getUnavailableDates,
-    createBookingByPropertyId
+    createBookingByPropertyId,
+    patchBooking
 } from '../controllers/bookingController.js';
 import { protect } from '../middleware/auth.js';
 import { authoriseUser } from '../middleware/role.js';
@@ -20,6 +21,15 @@ const validateBooking = [
     check('startDate', 'Start date is required').isDate(),
     check('endDate', 'End date is required').isDate(),
     check('status', 'Booking status is required').isIn(['Pending', 'Confirmed', 'Cancelled'])
+];
+
+// Validation rules for partial PATCH updates
+const validatePartialUpdate = [
+    check('property', 'Property ID optional').optional(),
+    check('startDate', 'Start date must be a valid date').optional().isDate(),
+    check('endDate', 'End date must be a valid date').optional().isDate(),
+    check('status', 'Booking status must be one of the following: Pending, Confirmed, Cancelled')
+        .optional().isIn(['Pending', 'Confirmed', 'Cancelled'])
 ];
 
 // Routes
@@ -51,5 +61,8 @@ router.get('/booking/:propertyId/unavailable-dates', getUnavailableDates);
 
 // New route to create a booking by property ID
 router.post('/booking/:propertyId', protect, createBookingByPropertyId);
+
+// New PATCH route for partially updating a booking
+router.patch('/booking/:id', protect, validatePartialUpdate, patchBooking);
 
 export default router;

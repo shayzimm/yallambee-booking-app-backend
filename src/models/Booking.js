@@ -21,7 +21,7 @@ const BookingSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function (value) {
-                // Ensuring the endDate is at least 1 day after the startDate
+                // Ensuring endDate is a valid date and is after startDate
                 return value > this.startDate && (value - this.startDate) >= 24 * 60 * 60 * 1000; // 1 day in milliseconds
             },
             message: 'End date for booking must be at least one day after the start date.'

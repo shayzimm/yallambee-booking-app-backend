@@ -8,7 +8,7 @@ import { validationResult } from 'express-validator';
 // DONE: createProperty - CREATE
 // DONE: updateProperty - UPDATE
 // DONE: deleteProperty - DELETE
-// TO DO: Better error handling, integrate validation and JWT for user/admin auth. 
+// DONE: Better error handling, integrate validation and JWT for user/admin auth. 
 
 // Get all properties
 export const getProperties = async (req, res) => {
@@ -78,5 +78,31 @@ export const deleteProperty = async (req, res) => {
         res.status(200).json({ message: 'Property deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error: Unable to delete property' });
+    }
+};
+
+// NEW PATCH route to partially update a property
+export const patchProperty = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // Validation errors
+        console.log('Validation errors:', errors.array()); 
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        // requesting property data
+        console.log('Updating property with data:', req.body); 
+
+        const updatedProperty = await Property.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedProperty) return res.status(404).json({ message: 'Property not found' });
+
+        // Updated property
+        console.log('Property updated:', updatedProperty); 
+
+        return res.status(200).json(updatedProperty);
+    } catch (error) {
+        console.error('Error updating property:', error); 
+        return res.status(400).json({ message: 'Error: Unable to update property' });
     }
 };
