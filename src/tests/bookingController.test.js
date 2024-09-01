@@ -4,6 +4,8 @@ import app from '../app.js'; // Adjust this path according to your setup
 import Booking from '../models/Booking.js';
 import User from '../models/User.js';
 import Property from '../models/Property.js';
+import cloudinary from '../config/cloudinaryConfig';
+import upload from '../config/multerConfig.js';
 
 // Create a mock ObjectId
 const mockUserId = new mongoose.Types.ObjectId();
@@ -13,6 +15,27 @@ jest.mock('../middleware/auth', () => ({
         req.user = { id: mockUserId, isAdmin: true }; // Use the generated ObjectId for the user
         next();
     }),
+}));
+
+// Mocking cloudinary and nodemailer
+jest.mock('cloudinary', () => ({
+    v2: {
+      config: jest.fn(),
+      uploader: {
+        upload: jest.fn().mockResolvedValue({}),
+      },
+    },
+  }));
+  
+  jest.mock('nodemailer', () => ({
+    createTransport: jest.fn().mockReturnValue({
+      verify: jest.fn().mockResolvedValue(true),
+    }),
+  }));
+  
+  // Mocking multerConfig.js
+  jest.mock('../config/multerConfig.js', () => ({
+    single: jest.fn(),
 }));
 
 describe('Booking Controller', () => {
@@ -94,34 +117,60 @@ describe('Booking Controller', () => {
     });
 
     it('should update a booking', async () => {
-      const booking = await Booking.create({
-          user: user._id,
-          property: property._id,
-          startDate: '2024-12-01',
-          endDate: '2024-12-05',
-          status: 'Pending',
-      });
-  
-      const bookingData = {
-          property: booking.property,  // Use the existing property's ID
-          startDate: '2024-12-01',
-          endDate: '2024-12-06',  // Changing the end date
-          status: 'Confirmed',
-      };
-  
-      const response = await request(app)
-          .put(`/booking/${booking._id}`)
-          .send(bookingData)  // Ensure all required fields are sent
-          .set('Authorization', `Bearer token`);
-  
-      expect(response.statusCode).toBe(200);
-      expect(response.body).toHaveProperty('_id');
-      expect(response.body).toHaveProperty('status', 'Confirmed');
-      
-      // Convert the response endDate to a simple date string for comparison
-      const responseEndDate = new Date(response.body.endDate).toISOString().split('T')[0];
-      expect(responseEndDate).toBe(bookingData.endDate);
-  });    
+        const booking = await Booking.create({
+            user: user._id,
+            property: property._id,
+            startDate: '2024-12-01',
+            endDate: '2024-12-05',
+            status: 'Pending',
+        });
+
+        const bookingData = {
+            property: booking.property,  // Use the existing property's ID
+            startDate: '2024-12-01',
+            endDate: '2024-12-06',  // Changing the end date
+            status: 'Confirmed',
+        };
+
+        const response = await request(app)
+            .put(`/booking/${booking._id}`)
+            .send(bookingData)  // Ensure all required fields are sent
+            .set('Authorization', `Bearer token`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('_id');
+        expect(response.body).toHaveProperty('status', 'Confirmed');
+
+        // Convert the response endDate to a simple date string for comparison
+        const responseEndDate = new Date(response.body.endDate).toISOString().split('T')[0];
+        expect(responseEndDate).toBe(bookingData.endDate);
+    });
+
+    it('should partially update a booking with PATCH', async () => {
+        const booking = await Booking.create({
+            user: user._id,
+            property: property._id,
+            startDate: '2024-12-01',
+            endDate: '2024-12-05',
+            status: 'Pending',
+        });
+
+        const patchData = {
+            endDate: '2024-12-07',  // Change only the end date
+            status: 'Confirmed',  // Update status to Confirmed
+        };
+
+        const response = await request(app)
+            .patch(`/booking/${booking._id}`)
+            .send(patchData)
+            .set('Authorization', `Bearer token`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('_id');
+        expect(response.body).toHaveProperty('status', 'Confirmed');
+        const responseEndDate = new Date(response.body.endDate).toISOString().split('T')[0];
+        expect(responseEndDate).toBe(patchData.endDate);
+    });
 
     it('should delete a booking', async () => {
         const booking = await Booking.create({

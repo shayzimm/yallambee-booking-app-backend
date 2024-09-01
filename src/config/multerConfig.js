@@ -3,11 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Getting the current directory of the module (trying to debug the path config)
-const __filename = fileURLToPath(import.meta.url);
+// Getting the current directory of the module
+const __filename = fileURLToPath(new URL(import.meta.url));
 const __dirname = path.dirname(__filename);
 
-// setting path to uploads directory
+// Setting path to uploads directory
 const uploadDir = path.join(__dirname, '../uploads');
 
 if (!fs.existsSync(uploadDir)) {
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   }
 });
 
-// Initilsing multer with the storage configuration
+// Initializing multer with the storage configuration
 const upload = multer({ storage: storage });
 
 export default upload;
