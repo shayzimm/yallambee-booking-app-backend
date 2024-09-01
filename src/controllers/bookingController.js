@@ -36,6 +36,7 @@ export const getBookingById = async (req, res) => {
     }
 };
 
+
 // Create a new booking
 export const createBooking = [
     protect, // JWT authentication

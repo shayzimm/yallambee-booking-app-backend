@@ -32,15 +32,16 @@ export const emailTemplates = {
           <p>Dear {{name}},</p>
           <p>We are delighted to confirm your booking with <strong>Yallambee Tiny Homes</strong>.</p>
           <p>Your stay is scheduled from <strong>{{startDate}}</strong> to <strong>{{endDate}}</strong>.</p>
-          <p>If you have any questions, feel free to <a href="mailto:support@yallambeetinyhomes.com">reach out to us</a>.</p>
+          <p>We understand that plans can change, if you need to cancel or reschedule a booking, we ask that you contact the Yallambee Team directly.</p>
+          <p>If you have any further questions, feel free to <a href="mailto:support@yallambeetinyhomes.com">reach out to us</a>.</p>
           <p>We look forward to hosting you!</p>
           <p>Best regards,<br/>The Yallambee Team</p>
         `
     },
     bookingReceived: {
         subject: 'Your Booking Request - Yallambee Tiny Homes',
-        text: 'Dear {{name}},\n\nWe have received your booking request. Our team will review it, and you will be notified upon confirmation.\n\nBooking Reference: {{bookingId}}\nBooking Dates: {{startDate}} to {{endDate}}\n\nThank you for choosing Yallambee Tiny Homes!',
-        html: '<h1>Dear {{name}},</h1><p>We have received your booking request. Our team will review it, and you will be notified upon confirmation.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>Booking Dates:</strong> {{startDate}} to {{endDate}}</p><p>Thank you for choosing Yallambee Tiny Homes!</p>',
+        text: 'Dear {{name}},\n\nWe have received your booking request. Our team will review it, and you will be notified upon confirmation.\n\nBooking Reference: {{bookingId}}\nBooking Dates: {{startDate}} to {{endDate}}\n\nWe understand that plans can change, if you need to cancel or reschedule a booking, we ask that you contact the Yallambee Team directly.\n\nThank you for choosing Yallambee Tiny Homes!',
+        html: '<h1>Dear {{name}},</h1><p>We have received your booking request. Our team will review it, and you will be notified upon confirmation.</p><p><strong>Booking Reference:</strong> {{bookingId}}</p><p><strong>Booking Dates:</strong> {{startDate}} to {{endDate}}</p><p>We understand that plans can change, if you need to cancel or reschedule a booking, we ask that you contact the Yallambee Team directly.</p><p>Thank you for choosing Yallambee Tiny Homes!</p>',
     },
     bookingUpdated: {
         subject: 'Your Booking Has Been Updated - Yallambee Tiny Homes',
