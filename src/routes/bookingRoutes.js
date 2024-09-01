@@ -43,9 +43,11 @@ router.get('/booking', protect, authoriseUser('admin'), getBookings);
 // added protect middleware to auth logged in user
 router.get('/booking/:id', protect, getBookingById);
 
-// Create a new booking
+// Create a new booking (admin only)
 // added protect middleware to auth logged in user
-router.post('/booking', protect, validateBooking, createBooking);
+// added authoriseUser middleware to determine admin role booking creation only
+// Bookings can be creatd by admins with another user's ID 
+router.post('/booking', protect, authoriseUser,validateBooking, createBooking);
 
 // Update a booking
 // added protect middleware to auth logged in user

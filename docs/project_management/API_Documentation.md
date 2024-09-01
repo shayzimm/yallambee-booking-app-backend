@@ -1,6 +1,6 @@
 # Tiny Home Booking API Documentation
 
-The Tiny Home Booking Platform API provides access to manage users, properties, bookings, and reviews. The API is built using RESTful principles and requires authentication for most operations.
+The Tiny Home Booking Platform API provides access to manage users, properties and bookings. The API is built using RESTful principles and requires authentication for most operations.
 
 **Authentication**
 This API uses JSON Web Tokens (JWT) for authentication. To access protected routes, include the token in the ‘Authorization’ header.
@@ -566,12 +566,13 @@ Authorization: Bearer \<JWT token\>
 `POST /bookings`
 
 **Description**  
-Creates a new booking. Accessible by authenticated users.
+Creates a new booking. Accessible by authenticated users AND Admins only. Enables Admins to be authenticated and create a booking for other users, linking the userID to the created booking, through the intended booking user's ID, passed into the request body.
 
 **Request Body**
 `property` (String) - Required. The ID of the property being booked.  
 `startDate` (Date) - Required. The start date of the booking.  
 `endDate` (Date) - Required. The end date of the booking.  
+`id` (String) - Required. The userID, of the intended booking creation.
 `status` (String) - Required. Booking status. Must be one of `['Pending', 'Confirmed', 'Cancelled']`.
 
 **Headers**  
