@@ -227,7 +227,7 @@ export const getUnavailableDates = async (req, res) => {
     }
 };
 
-// NEW PATCH to Update booking details partially
+// NEW PATCH to Update booking details partially.
 export const patchBooking = [
     async (req, res) => {
         // Validate request body
