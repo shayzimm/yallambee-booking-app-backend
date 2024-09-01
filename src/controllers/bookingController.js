@@ -12,6 +12,7 @@ import sendEmail from '../services/sendEmail.js'
 // DONE: deleteBooking - DELETE
 // TO DO: Better error handling, integrate validation and JWT for user/admin auth. 
 
+
 // Get all bookings
 export const getBookings = async (req, res) => {
     try {
@@ -226,3 +227,44 @@ export const getUnavailableDates = async (req, res) => {
     }
 };
 
+// NEW PATCH to Update booking details partially.
+export const patchBooking = [
+    async (req, res) => {
+        // Validate request body
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // Validation errors
+            console.log('Validation errors:', errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            // The request data
+            console.log('Updating booking with data:', req.body);
+
+            // Finding and updating the booking
+            const updatedBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            if (!updatedBooking) return res.status(404).json({ message: 'Booking not found' });
+
+            console.log('Booking updated:', updatedBooking); // updated booking
+
+            // Finding the user who made the booking
+            const user = await User.findById(updatedBooking.user);
+            if (!user) return res.status(404).json({ message: 'User not found' });
+
+            // Sending email notification of updates
+            await sendEmail(user.email, 'bookingUpdated', {
+                name: user.firstName,
+                bookingId: updatedBooking._id,
+                startDate: new Date(updatedBooking.startDate).toLocaleDateString(),
+                endDate: new Date(updatedBooking.endDate).toLocaleDateString(),
+            });
+
+            // Responding with updated booking
+            return res.status(200).json(updatedBooking);
+        } catch (error) {
+            console.error('Error updating booking:', error); // Console logging the error
+            return res.status(400).json({ message: 'Error: Unable to update booking' });
+        }
+    }
+];
